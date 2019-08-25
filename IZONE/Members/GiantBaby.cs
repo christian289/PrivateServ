@@ -23,14 +23,33 @@ namespace IZONE.Members
 
             Alias = new List<string>
             {
+                "워뇨",
+                "워녕이",
+                "녕깅이",
+                "102",
+                "원콩이",
+                "아기토끼",
+                "녕토끼",
+                "녕데렐라",
+                "이촌동 꿀주먹",
                 "자이언트 베이비",
-                "102"
+                "모태 센터",
+                "노벨 아이돌상",
+                "장바페",
+                "장센",
+                "만년돌",
+                "장비키",
+                "망나뇽",
+                "밥파고",
+                "장원일",
+                "워뇨봇",
+                "사랑둥이"
             };
 
             Hobby = new List<string>
             {
-                "",
-                ""
+                "언니들하고 놀기",
+                "외국어"
             };
 
             BloodType = "O";
@@ -41,22 +60,21 @@ namespace IZONE.Members
 
             BroadCastList = new List<string>
             {
-                "Mnet 프로듀스 48",
-                "Mnet 아이즈원 츄 1",
-                "Mnet 아이즈원 츄 2 비밀친구"
+                "[Mnet] 프로듀스 48",
+                "[Mnet] 아이즈원 츄",
+                "[Mnet] 아이즈원 츄 비밀친구",
+                "[JTBC] 한끼줍쇼"
             };
 
-            Words = new List<string>
-            {
-                "",
-                ""
-            };
+            Company = "스타쉽엔터테인먼트";
 
             Position = new List<string>
             {
-                "한국 1집 라비앙로즈 : 센터",
-                "한국 2집 비올레타 : 센터"
+                "센터",
+                "서브보컬"
             };
+
+            Color = "캔디핑크10, D9598C";
         }
     }
 }

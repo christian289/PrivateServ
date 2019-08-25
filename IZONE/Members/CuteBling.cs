@@ -23,14 +23,23 @@ namespace IZONE.Members
 
             Alias = new List<string>
             {
-                "귀염뽀짝",
-                ""
+                "귀염뽀짝요정",
+                "나북희",
+                "나코나코땅땅",
+                "김나코",
+                "나코나코니",
+                "낰",
+                "하카타 꿀주먹",
+                "야부 키나코",
+                "야부키 잔디",
+                "담담이"
             };
 
             Hobby = new List<string>
             {
-                "",
-                ""
+                "영화 보기",
+                "무쌍커풀 만들기",
+                "고속 머리땋기"
             };
 
             BloodType = "UnKnown";
@@ -41,21 +50,19 @@ namespace IZONE.Members
 
             BroadCastList = new List<string>
             {
-                "Mnet 프로듀스 48",
-                "Mnet 아이즈원 츄 1",
-                "Mnet 아이즈원 츄 2 비밀친구"
+                "[Mnet] 프로듀스 48",
+                "[Mnet] 아이즈원 츄",
+                "[Mnet] 아이즈원 츄 비밀친구"
             };
 
-            Words = new List<string>
-            {
-                "",
-                ""
-            };
+            Company = "AKS";
 
             Position = new List<string>
             {
-                ""
+                "서브보컬"
             };
+
+            Color = "나부키 하늘, B7D3E9";
         }
     }
 }

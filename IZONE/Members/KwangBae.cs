@@ -24,13 +24,32 @@ namespace IZONE.Members
             Alias = new List<string>
             {
                 "광배",
-                ""
+                "광순이",
+                "강짱",
+                "세정맛 소혜",
+                "지옥에서 온 청순 래퍼",
+                "기어갑",
+                "미나미맘",
+                "강햄찌",
+                "야먹",
+                "팡IdH",
+                "종료요정",
+                "강코랄",
+                "공항여포",
+                "셋째",
+                "형",
+                "강씨",
+                "광토그래퍼",
+                "얼음공주",
+                "스킨십 빌런",
+                "光北"
             };
 
             Hobby = new List<string>
             {
-                "먹방",
-                ""
+                "애니 감상",
+                "드라마 감상",
+                "피아노 연주"
             };
 
             BloodType = "B";
@@ -41,21 +60,21 @@ namespace IZONE.Members
 
             BroadCastList = new List<string>
             {
-                "프로듀스 48",
-                "아이즈원 츄",
-                "아이즈원 츄2 비밀친구"
+                "[Mnet] 프로듀스 48",
+                "[Mnet] 아이즈원 츄",
+                "[Mnet] 아이즈원 츄 비밀친구",
+                "[MBC] 마이 리틀 텔레비전 V2"
             };
 
-            Words = new List<string>
-            {
-                "너 내 동료가 되어라.",
-                ""
-            };
+            Company = "에잇디 크리에이티브";
 
             Position = new List<string>
             {
-                "래퍼"
+                "리드래퍼",
+                "서브보컬"
             };
+
+            Color = "강코랄, DB706C";
         }
     }
 }

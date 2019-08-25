@@ -23,39 +23,51 @@ namespace IZONE.Members
 
             Alias = new List<string>
             {
+                "쌈무요정",
                 "쌈무",
-                ""
+                "째오니",
+                "로봇채원",
+                "천사소녀",
+                "짬무",
+                "대천사",
+                "채원",
+                "쌈아치",
+                "코알라",
+                "빛나는 쌈무",
+                "광군",
+                "자몽요정",
+                "김자몽"
             };
 
             Hobby = new List<string>
             {
-                "",
-                ""
+                "영화 보기",
+                "안무 영상 보기",
+                "매운 음식 먹기"
             };
 
             BloodType = "B";
 
-            Height_cm = 163;
+            Height_cm = 164;
 
             Weight_kg = 42;
 
             BroadCastList = new List<string>
             {
-                "Mnet 프로듀스 48",
-                "Mnet 아이즈원 츄 1",
-                "Mnet 아이즈원 츄 2 비밀친구"
+                "[Mnet] 프로듀스 48",
+                "[Mnet] 아이즈원 츄",
+                "[Mnet] 아이즈원 츄 비밀친구",
+                "[MBC every1] SHOW CHAMPION"
             };
 
-            Words = new List<string>
-            {
-                "",
-                ""
-            };
+            Company = "울림엔터테인먼트";
 
             Position = new List<string>
             {
-                "1집 : 리드 보컬"
+                "리드보컬"
             };
+
+            Color = "챔무, CEE5D5";
         }
     }
 }

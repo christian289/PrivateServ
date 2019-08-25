@@ -65,14 +65,19 @@ namespace IZONE.Members
         public List<string> BroadCastList { get; set; }
 
         /// <summary>
-        /// 어록
+        /// 소속사
         /// </summary>
-        public List<string> Words { get; set; }
+        public string Company { get; set; }
 
         /// <summary>
         /// 포지션
         /// </summary>
         public List<string> Position { get; set; }
+
+        /// <summary>
+        /// 상징색
+        /// </summary>
+        public string Color { get; set; }
 
         public Member()
         {

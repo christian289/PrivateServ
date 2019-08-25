@@ -24,13 +24,27 @@ namespace IZONE.Members
             Alias = new List<string>
             {
                 "오리",
-                ""
+                "오리쉑",
+                "달콤언니",
+                "최허세",
+                "옌",
+                "모태 끼쟁이",
+                "콜라소녀",
+                "하이예나",
+                "예감독",
+                "황토방 최사장님",
+                "북경오리",
+                "예나벨",
+                "11번 친구",
+                "막둥오리"
             };
 
             Hobby = new List<string>
             {
-                "",
-                ""
+                "만화책 읽기",
+                "영화 보기",
+                "인형 뽑기",
+                "게임"
             };
 
             BloodType = "A";
@@ -41,22 +55,21 @@ namespace IZONE.Members
 
             BroadCastList = new List<string>
             {
-                "프로듀스 48",
-                "아이즈원 츄",
-                "아이즈원 츄2 비밀친구",
-                "호구들의 깜빵생활"
+                "[Mnet] 프로듀스 48",
+                "[Mnet] 아이즈원 츄",
+                "[Mnet] 아이즈원 츄 비밀친구",
+                "[tvN] 호구들의 깜빵생활",
+                "[SBS 파워 FM] 배성재의 TEN"
             };
 
-            Words = new List<string>
-            {
-                "",
-                ""
-            };
+            Company = "위에화엔터테인먼트";
 
             Position = new List<string>
             {
-                "1집 : 리드 보컬"
+                "리드보컬, 리드댄서, 래퍼"
             };
+
+            Color = "옌로우, FCF695";
         }
     }
 }

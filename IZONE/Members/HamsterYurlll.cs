@@ -23,14 +23,29 @@ namespace IZONE.Members
 
             Alias = new List<string>
             {
+                "조율",
+                "조구리",
+                "댕찌",
+                "작댕",
+                "햄찌장군",
                 "햄찌율",
-                ""
+                "조감자",
+                "3초갑",
+                "부산상여자",
+                "인소인간",
+                "하랑",
+                "조치타",
+                "조댕찌",
+                "조희지"
             };
 
             Hobby = new List<string>
             {
-                "",
-                ""
+                "만화책 읽기",
+                "공포영화 보기",
+                "드럼 연주",
+                "피아노 연주",
+                "가창"
             };
 
             BloodType = "AB";
@@ -41,22 +56,19 @@ namespace IZONE.Members
 
             BroadCastList = new List<string>
             {
-                "Mnet 프로듀스 48",
-                "Mnet 아이즈원 츄 1",
-                "Mnet 아이즈원 츄 2 비밀친구"
+                "[Mnet] 프로듀스 48",
+                "[Mnet] 아이즈원 츄",
+                "[Mnet] 아이즈원 츄 비밀친구"
             };
 
-            Words = new List<string>
-            {
-                "",
-                ""
-            };
+            Company = "스톤뮤직엔터테인먼트";
 
             Position = new List<string>
             {
-                "한국 1집 라비앙로즈 : 메인 보컬",
-                "한국 2집 비올레타 : 메인 보컬"
+                "메인보컬"
             };
+
+            Color = "율렌지, F3AA51";
         }
     }
 }
