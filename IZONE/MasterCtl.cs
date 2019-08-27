@@ -55,6 +55,8 @@ namespace IZONE
             _GiantBaby = new GiantBaby();
 
             tmr_NaverScraping.Enabled = true;
+
+            lvBirthDayBitMap.SmallImageList = ImgLst_BirthDay;
         }
 
         private void Tmr_NaverScraping_Tick(object sender, EventArgs e)
@@ -161,7 +163,7 @@ namespace IZONE
                 return false;
             }
 
-            TgtHnd = TargetWindowNameHnd;
+            TgtHnd = hChildDialog1;
 
             return true;
         }
