@@ -31,14 +31,16 @@
             this.components = new System.ComponentModel.Container();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.grpFunctionList = new System.Windows.Forms.GroupBox();
-            this.btnBirthDayCheckerStop = new System.Windows.Forms.Button();
-            this.btnBirthDayCheckerStart = new System.Windows.Forms.Button();
+            this.btnBirthDayCheckStop = new System.Windows.Forms.Button();
+            this.btnBirthDayCheckStart = new System.Windows.Forms.Button();
             this.grpCheckLog = new System.Windows.Forms.GroupBox();
+            this.lvBirthDayBitMap = new System.Windows.Forms.ListView();
+            this.ImgLst_BirthDay = new System.Windows.Forms.ImageList(this.components);
             this.lstBx_WhoIsCall = new System.Windows.Forms.ListBox();
             this.tmr_BirthDayChecker = new System.Windows.Forms.Timer(this.components);
             this.tmr_NaverScraping = new System.Windows.Forms.Timer(this.components);
-            this.lvBirthDayBitMap = new System.Windows.Forms.ListView();
-            this.ImgLst_BirthDay = new System.Windows.Forms.ImageList(this.components);
+            this.btnEarthquakeCheckStop = new System.Windows.Forms.Button();
+            this.btnEarthquakeCheckStart = new System.Windows.Forms.Button();
             this.pnlMain.SuspendLayout();
             this.grpFunctionList.SuspendLayout();
             this.grpCheckLog.SuspendLayout();
@@ -57,8 +59,10 @@
             // 
             // grpFunctionList
             // 
-            this.grpFunctionList.Controls.Add(this.btnBirthDayCheckerStop);
-            this.grpFunctionList.Controls.Add(this.btnBirthDayCheckerStart);
+            this.grpFunctionList.Controls.Add(this.btnEarthquakeCheckStop);
+            this.grpFunctionList.Controls.Add(this.btnBirthDayCheckStop);
+            this.grpFunctionList.Controls.Add(this.btnEarthquakeCheckStart);
+            this.grpFunctionList.Controls.Add(this.btnBirthDayCheckStart);
             this.grpFunctionList.Location = new System.Drawing.Point(17, 309);
             this.grpFunctionList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grpFunctionList.Name = "grpFunctionList";
@@ -68,25 +72,25 @@
             this.grpFunctionList.TabStop = false;
             this.grpFunctionList.Text = "기능";
             // 
-            // btnBirthDayCheckerStop
+            // btnBirthDayCheckStop
             // 
-            this.btnBirthDayCheckerStop.Location = new System.Drawing.Point(166, 19);
-            this.btnBirthDayCheckerStop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnBirthDayCheckerStop.Name = "btnBirthDayCheckerStop";
-            this.btnBirthDayCheckerStop.Size = new System.Drawing.Size(145, 52);
-            this.btnBirthDayCheckerStop.TabIndex = 2;
-            this.btnBirthDayCheckerStop.Text = "멤버 시 체크 안 함";
-            this.btnBirthDayCheckerStop.UseVisualStyleBackColor = true;
+            this.btnBirthDayCheckStop.Location = new System.Drawing.Point(166, 19);
+            this.btnBirthDayCheckStop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnBirthDayCheckStop.Name = "btnBirthDayCheckStop";
+            this.btnBirthDayCheckStop.Size = new System.Drawing.Size(145, 52);
+            this.btnBirthDayCheckStop.TabIndex = 2;
+            this.btnBirthDayCheckStop.Text = "멤버 시 체크 안 함";
+            this.btnBirthDayCheckStop.UseVisualStyleBackColor = true;
             // 
-            // btnBirthDayCheckerStart
+            // btnBirthDayCheckStart
             // 
-            this.btnBirthDayCheckerStart.Location = new System.Drawing.Point(16, 19);
-            this.btnBirthDayCheckerStart.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnBirthDayCheckerStart.Name = "btnBirthDayCheckerStart";
-            this.btnBirthDayCheckerStart.Size = new System.Drawing.Size(145, 52);
-            this.btnBirthDayCheckerStart.TabIndex = 2;
-            this.btnBirthDayCheckerStart.Text = "멤버 시 체크 시작";
-            this.btnBirthDayCheckerStart.UseVisualStyleBackColor = true;
+            this.btnBirthDayCheckStart.Location = new System.Drawing.Point(16, 19);
+            this.btnBirthDayCheckStart.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnBirthDayCheckStart.Name = "btnBirthDayCheckStart";
+            this.btnBirthDayCheckStart.Size = new System.Drawing.Size(145, 52);
+            this.btnBirthDayCheckStart.TabIndex = 2;
+            this.btnBirthDayCheckStart.Text = "멤버 시 체크 시작";
+            this.btnBirthDayCheckStart.UseVisualStyleBackColor = true;
             // 
             // grpCheckLog
             // 
@@ -100,20 +104,6 @@
             this.grpCheckLog.TabIndex = 1;
             this.grpCheckLog.TabStop = false;
             this.grpCheckLog.Text = "모니터링";
-            // 
-            // lstBx_WhoIsCall
-            // 
-            this.lstBx_WhoIsCall.FormattingEnabled = true;
-            this.lstBx_WhoIsCall.ItemHeight = 12;
-            this.lstBx_WhoIsCall.Location = new System.Drawing.Point(16, 18);
-            this.lstBx_WhoIsCall.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.lstBx_WhoIsCall.Name = "lstBx_WhoIsCall";
-            this.lstBx_WhoIsCall.Size = new System.Drawing.Size(295, 256);
-            this.lstBx_WhoIsCall.TabIndex = 0;
-            // 
-            // tmr_NaverScraping
-            // 
-            this.tmr_NaverScraping.Interval = 10000;
             // 
             // lvBirthDayBitMap
             // 
@@ -129,6 +119,40 @@
             this.ImgLst_BirthDay.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
             this.ImgLst_BirthDay.ImageSize = new System.Drawing.Size(16, 16);
             this.ImgLst_BirthDay.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // lstBx_WhoIsCall
+            // 
+            this.lstBx_WhoIsCall.FormattingEnabled = true;
+            this.lstBx_WhoIsCall.ItemHeight = 12;
+            this.lstBx_WhoIsCall.Location = new System.Drawing.Point(16, 18);
+            this.lstBx_WhoIsCall.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.lstBx_WhoIsCall.Name = "lstBx_WhoIsCall";
+            this.lstBx_WhoIsCall.Size = new System.Drawing.Size(295, 256);
+            this.lstBx_WhoIsCall.TabIndex = 0;
+            // 
+            // tmr_NaverScraping
+            // 
+            this.tmr_NaverScraping.Interval = 10000;
+            // 
+            // btnEarthquakeCheckStop
+            // 
+            this.btnEarthquakeCheckStop.Location = new System.Drawing.Point(468, 19);
+            this.btnEarthquakeCheckStop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnEarthquakeCheckStop.Name = "btnEarthquakeCheckStop";
+            this.btnEarthquakeCheckStop.Size = new System.Drawing.Size(145, 52);
+            this.btnEarthquakeCheckStop.TabIndex = 2;
+            this.btnEarthquakeCheckStop.Text = "지진 체크 안 함";
+            this.btnEarthquakeCheckStop.UseVisualStyleBackColor = true;
+            // 
+            // btnEarthquakeCheckStart
+            // 
+            this.btnEarthquakeCheckStart.Location = new System.Drawing.Point(317, 18);
+            this.btnEarthquakeCheckStart.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnEarthquakeCheckStart.Name = "btnEarthquakeCheckStart";
+            this.btnEarthquakeCheckStart.Size = new System.Drawing.Size(145, 52);
+            this.btnEarthquakeCheckStart.TabIndex = 2;
+            this.btnEarthquakeCheckStart.Text = "지진 체크 시작";
+            this.btnEarthquakeCheckStart.UseVisualStyleBackColor = true;
             // 
             // MasterCtl
             // 
@@ -152,10 +176,12 @@
         private System.Windows.Forms.GroupBox grpCheckLog;
         private System.Windows.Forms.ListBox lstBx_WhoIsCall;
         private System.Windows.Forms.Timer tmr_BirthDayChecker;
-        private System.Windows.Forms.Button btnBirthDayCheckerStop;
-        private System.Windows.Forms.Button btnBirthDayCheckerStart;
+        private System.Windows.Forms.Button btnBirthDayCheckStop;
+        private System.Windows.Forms.Button btnBirthDayCheckStart;
         private System.Windows.Forms.Timer tmr_NaverScraping;
         private System.Windows.Forms.ListView lvBirthDayBitMap;
         private System.Windows.Forms.ImageList ImgLst_BirthDay;
+        private System.Windows.Forms.Button btnEarthquakeCheckStop;
+        private System.Windows.Forms.Button btnEarthquakeCheckStart;
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using IZONE.Members;
+using CommonServices.Earthquake.Method;
 
 namespace IZONE
 {
@@ -20,49 +21,82 @@ namespace IZONE
         HtmlElement _HtmlElement;
         HtmlElementCollection _HtmlElementCollection;
 
-        CaptainRabbit _CaptainRabbit;
-        Kura _Kura;
-        KwangBae _KwangBae;
-        Duck _Duck;
-        Feather _Feather;
-        RadishWrappingRoll _RadishWrappingRoll;
-        Frog _Frog;
-        CuteBling _CuteBling;
-        Strawberry _Strawberry;
-        HamsterYurlll _HamsterYurlll;
-        Puppy _Puppy;
-        GiantBaby _GiantBaby;
+        List<Member> IZONE;
+
+        EarthquakeReport _EarthquakeReport;
+        EarthquakeReportList _EarthquakeReportList;
+        TsunamiReport _TsunamiReport;
+        TsunamiReportList _TsunamiReportList;
 
         public MasterCtl()
         {
             InitializeComponent();
-            tmr_BirthDayChecker.Tick += Tmr_BirthDayChecker_Tick;
-            tmr_NaverScraping.Tick += Tmr_NaverScraping_Tick;
-            btnBirthDayCheckerStart.Click += ((sender, e) => tmr_BirthDayChecker.Enabled = true );
-            btnBirthDayCheckerStop.Click += ((sender, e) => tmr_BirthDayChecker.Enabled = false );
 
-            _CaptainRabbit = new CaptainRabbit();
-            _Kura = new Kura();
-            _KwangBae = new KwangBae();
-            _Duck = new Duck();
-            _Feather = new Feather();
-            _RadishWrappingRoll = new RadishWrappingRoll();
-            _Frog = new Frog();
-            _CuteBling = new CuteBling();
-            _Strawberry = new Strawberry();
-            _HamsterYurlll = new HamsterYurlll();
-            _Puppy = new Puppy();
-            _GiantBaby = new GiantBaby();
+            tmr_BirthDayChecker.Tick += delegate (object sender, EventArgs e)
+            {
+                tmr_BirthDayChecker.Enabled = false;
+
+                BirthDayChecker();
+
+                tmr_BirthDayChecker.Enabled = true;
+            };
+            tmr_NaverScraping.Tick += delegate (object sender, EventArgs e)
+            {
+                tmr_NaverScraping.Enabled = false;
+
+                Scrapping();
+
+                tmr_NaverScraping.Enabled = true;
+            };
+            btnBirthDayCheckStart.Click += delegate (object sender, EventArgs e)
+            {
+                tmr_BirthDayChecker.Enabled = true;
+                btnBirthDayCheckStart.Enabled = false;
+                btnBirthDayCheckStop.Enabled = true;
+            };
+            btnBirthDayCheckStop.Click += delegate (object sender, EventArgs e)
+            {
+                tmr_BirthDayChecker.Enabled = false;
+                btnBirthDayCheckStart.Enabled = true;
+                btnBirthDayCheckStop.Enabled = false;
+            };
+            btnEarthquakeCheckStart.Click += delegate (object sender, EventArgs e)
+            {
+                _EarthquakeReport.Service();
+                _EarthquakeReportList.Service();
+                _TsunamiReport.Service();
+                _TsunamiReportList.Service();
+            };
+            btnEarthquakeCheckStop.Click += delegate (object sender, EventArgs e)
+            {
+                _EarthquakeReport.bServiceControl = true;
+                _EarthquakeReportList.bServiceControl = true;
+                _TsunamiReport.bServiceControl = true;
+                _TsunamiReportList.bServiceControl = true;
+            };
+
+            IZONE = new List<Member>();
+            IZONE.Add(new CaptainRabbit());
+            IZONE.Add(new Kura());
+            IZONE.Add(new KwangBae());
+            IZONE.Add(new Duck());
+            IZONE.Add(new Feather());
+            IZONE.Add(new RadishWrappingRoll());
+            IZONE.Add(new Frog());
+            IZONE.Add(new CuteBling());
+            IZONE.Add(new Strawberry());
+            IZONE.Add(new HamsterYurlll());
+            IZONE.Add(new Puppy());
+            IZONE.Add(new GiantBaby());
+
+            _EarthquakeReport = new EarthquakeReport();
+            _EarthquakeReportList = new EarthquakeReportList();
+            _TsunamiReport = new TsunamiReport();
+            _TsunamiReportList = new TsunamiReportList();
 
             tmr_NaverScraping.Enabled = true;
 
             lvBirthDayBitMap.SmallImageList = ImgLst_BirthDay;
-        }
-
-        private void Tmr_NaverScraping_Tick(object sender, EventArgs e)
-        {
-            // 5초마다 발생하는 타이머라 과부하가 적어서 재부팅할 필요가 없다.
-            Scrapping();
         }
 
         private void Scrapping()
@@ -70,76 +104,28 @@ namespace IZONE
 
         }
 
-        private void Tmr_BirthDayChecker_Tick(object sender, EventArgs e)
+        private void BirthDayChecker()
         {
-            tmr_BirthDayChecker.Enabled = false;
-
             // 나중에 패턴 사용해서 if 문 삭제
-            if (IsKaKaoTalkOpen(out TgtHnd))
+            if (IsKaKaoTalkOpen("이상준", out TgtHnd))
+            // if (IsKaKaoTalkOpen("안고독한 아이즈원(IZ*ONE)", out ThtHnd))
             {
                 CurTime = DateTime.Now;
 
-                if (CurTime.ToString("hh").Equals(_CaptainRabbit.BirthDay.Month.ToString().PadLeft(2, '0').ToString().PadLeft(2, '0')) && CurTime.Minute.Equals(_CaptainRabbit.BirthDay.Day))
+                foreach (Member member in IZONE)
                 {
-                    SendText(TgtHnd, _CaptainRabbit.BirthDayMessage);
-                }
-                else if (CurTime.ToString("hh").Equals(_Kura.BirthDay.Month.ToString().PadLeft(2, '0')) && CurTime.Minute.Equals(_Kura.BirthDay.Day))
-                {
-                    SendText(TgtHnd, _Kura.BirthDayMessage);
-                }
-                else if (CurTime.ToString("hh").Equals(_KwangBae.BirthDay.Month.ToString().PadLeft(2, '0')) && CurTime.Minute.Equals(_KwangBae.BirthDay.Day))
-                {
-                    SendText(TgtHnd, _KwangBae.BirthDayMessage);
-                }
-                else if (CurTime.ToString("hh").Equals(_Duck.BirthDay.Month.ToString().PadLeft(2, '0')) && CurTime.Minute.Equals(_Duck.BirthDay.Day))
-                {
-                    SendText(TgtHnd, _Duck.BirthDayMessage);
-                }
-                else if (CurTime.ToString("hh").Equals(_Feather.BirthDay.Month.ToString().PadLeft(2, '0')) && CurTime.Minute.Equals(_Feather.BirthDay.Day))
-                {
-                    SendText(TgtHnd, _Feather.BirthDayMessage);
-                }
-                else if (CurTime.ToString("hh").Equals(_RadishWrappingRoll.BirthDay.Month.ToString().PadLeft(2, '0')) && CurTime.Minute.Equals(_RadishWrappingRoll.BirthDay.Day))
-                {
-                    SendText(TgtHnd, _RadishWrappingRoll.BirthDayMessage);
-                }
-                else if (CurTime.ToString("hh").Equals(_Frog.BirthDay.Month.ToString().PadLeft(2, '0')) && CurTime.Minute.Equals(_Frog.BirthDay.Day))
-                {
-                    SendText(TgtHnd, _Frog.BirthDayMessage);
-                }
-                else if (CurTime.ToString("hh").Equals(_CuteBling.BirthDay.Month.ToString().PadLeft(2, '0')) && CurTime.Minute.Equals(_CuteBling.BirthDay.Day))
-                {
-                    SendText(TgtHnd, _CuteBling.BirthDayMessage);
-                }
-                else if (CurTime.ToString("hh").Equals(_Strawberry.BirthDay.Month.ToString().PadLeft(2, '0')) && CurTime.Minute.Equals(_Strawberry.BirthDay.Day))
-                {
-                    SendText(TgtHnd, _Strawberry.BirthDayMessage);
-                }
-                else if (CurTime.ToString("hh").Equals(_HamsterYurlll.BirthDay.Month.ToString().PadLeft(2, '0')) && CurTime.Minute.Equals(_HamsterYurlll.BirthDay.Day))
-                {
-                    SendText(TgtHnd, _HamsterYurlll.BirthDayMessage);
-                }
-                else if (CurTime.ToString("hh").Equals(_Puppy.BirthDay.Month.ToString().PadLeft(2, '0')) && CurTime.Minute.Equals(_Puppy.BirthDay.Day))
-                {
-                    SendText(TgtHnd, _Puppy.BirthDayMessage);
-                }
-                else if (CurTime.ToString("hh").Equals(_GiantBaby.BirthDay.Month.ToString().PadLeft(2, '0')) && CurTime.Minute.Equals(_GiantBaby.BirthDay.Day))
-                {
-                    SendText(TgtHnd, _GiantBaby.BirthDayMessage);
-                }
-                else if (CurTime.ToString("hh").Equals(10) && CurTime.Minute.Equals(29))
-                {
-                    SendText(TgtHnd, Msg.TimeOfDebut);
+                    if (CurTime.ToString("hh").Equals(member.BirthDay.ToString("MM")) &&
+                        CurTime.ToString("mm").Equals(member.BirthDay.ToString("dd")))
+                    {
+                        SendText(TgtHnd, member.BirthDayMessage);
+                    }
                 }
             }
-
-            tmr_BirthDayChecker.Enabled = true;
         }
 
-        private bool IsKaKaoTalkOpen(out IntPtr TgtHnd)
+        private bool IsKaKaoTalkOpen(string RoomName, out IntPtr TgtHnd)
         {
-            //IntPtr TargetWindowNameHnd = Utils.FindWindow(null, "안고독한 아이즈원(IZ*ONE)");
-            IntPtr TargetWindowNameHnd = Utils.FindWindow(null, "이상준");
+            IntPtr TargetWindowNameHnd = Utils.FindWindow(null, RoomName);
 
             if (TargetWindowNameHnd.Equals(IntPtr.Zero))
             {
@@ -154,16 +140,16 @@ namespace IZONE
             }
 
             // 총 2개의 하위 다이얼로그가 있으므로 핸들을 각각 가져온다.
-            IntPtr hChildDialog1 = Utils.FindWindowEx(TargetWindowNameHnd, IntPtr.Zero, "RichEdit20W", null);
+            IntPtr kakaoTextboxHandle = Utils.FindWindowEx(TargetWindowNameHnd, IntPtr.Zero, "RichEdit20W", null);
 
             // 두 개의 다이얼로그 중 하나의 값이라도 받아오지 못한 경우 정상적인 카카오톡 창이 아니다.
-            if (hChildDialog1 == IntPtr.Zero)
+            if (kakaoTextboxHandle == IntPtr.Zero)
             {
                 TgtHnd = IntPtr.Zero;
                 return false;
             }
 
-            TgtHnd = hChildDialog1;
+            TgtHnd = kakaoTextboxHandle;
 
             return true;
         }
