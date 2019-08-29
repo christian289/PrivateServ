@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CommonServices.Earthquake.Entity.Response
+﻿namespace CommonServices.Earthquake.Entity.Response
 {
     /// <summary>
     /// 지진해일통보문조회 응답 Entity

@@ -1,33 +1,27 @@
-﻿using CommonServices.HttpComm;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
+using CommonServices.HttpComm;
 
 namespace CommonServices.Earthquake.Method
 {
     public class EarthquakeReport : EarthquakeBase
     {
-        public bool bResponseGetComplete; // 다른 프로젝트에서 가져갔을 때 가져감 여부
-
         public Entity.Response.EarthquakeReport EarthquakeReportRes
         {
             get
             {
-                bResponseGetComplete = true;
                 return EarthquakeReportRes;
             }
             private set
             {
                 EarthquakeReportRes = value;
+                InComming();
             }
         }
 
         public EarthquakeReport()
         {
-            bResponseGetComplete = false;
         }
 
         public override async void Service()
@@ -72,7 +66,7 @@ namespace CommonServices.Earthquake.Method
                      await Comm.Instance.request(
                          url: SiteURI.EarthquakeReport,
                          method: Comm.METHOD_GET,
-                         postOrParamsData: null
+                         postOrParamsData: JObject.FromObject(Entity).ToString()
                          )
                      ).ToObject<Entity.Response.EarthquakeReport>();
 

@@ -8,24 +8,27 @@ namespace CommonServices.Earthquake.Method
 {
     public class EarthquakeBase
     {
-        public bool bServiceControl;
+        public delegate void ResponseFired();
+        public ResponseFired InComming;
 
+        public bool bServiceControl;
         protected bool bDateTimeChanged;
+        private DateTime _TodayDT; // Property를 { get; set; } 형식으로 쓰지 않고 아래처럼 get과 set의 동작을 명시할 경우, private 변수를 따로 지정하지 않았을 때 재귀호출이 생겨서 StackOverFlowException이 발생한다.
 
         protected DateTime TodayDT
         {
             get
             {
-                return TodayDT;
+                return _TodayDT;
             }
             set
             {
-                if (TodayDT != value) // 현재 날짜와 입력되는 날짜가 다를 경우.
+                if (_TodayDT != value) // 현재 날짜와 입력되는 날짜가 다를 경우.
                 {
                     bDateTimeChanged = true; // 날짜가 변경될 경우 변경되었다는 표시.
                 }
 
-                TodayDT = value;
+                _TodayDT = value;
             }
         }
 

@@ -8,12 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using IZONE.Members;
-using CommonServices.Earthquake.Method;
+using Newtonsoft.Json.Linq;
 
 namespace IZONE
 {
     public partial class MasterCtl : UserControl
     {
+        private const string RoomName = "이상준";
+
         IntPtr TgtHnd;
         DateTime CurTime;
 
@@ -23,10 +25,15 @@ namespace IZONE
 
         List<Member> IZONE;
 
-        EarthquakeReport _EarthquakeReport;
-        EarthquakeReportList _EarthquakeReportList;
-        TsunamiReport _TsunamiReport;
-        TsunamiReportList _TsunamiReportList;
+        CommonServices.Earthquake.Method.EarthquakeReport _EarthquakeReport;
+        CommonServices.Earthquake.Method.EarthquakeReportList _EarthquakeReportList;
+        CommonServices.Earthquake.Method.TsunamiReport _TsunamiReport;
+        CommonServices.Earthquake.Method.TsunamiReportList _TsunamiReportList;
+
+        CommonServices.Earthquake.Entity.Response.EarthquakeReport _EarthquakeReportRes;
+        CommonServices.Earthquake.Entity.Response.EarthquakeReportList _EarthquakeReportListRes;
+        CommonServices.Earthquake.Entity.Response.TsunamiReport _TsunamiReportRes;
+        CommonServices.Earthquake.Entity.Response.TsunamiReportList _TsunamiReportListRes;
 
         public MasterCtl()
         {
@@ -74,6 +81,7 @@ namespace IZONE
                 _TsunamiReport.bServiceControl = true;
                 _TsunamiReportList.bServiceControl = true;
             };
+            lvBirthDayImages.ItemDrag += LvBirthDayImages_ItemDrag;
 
             IZONE = new List<Member>();
             IZONE.Add(new CaptainRabbit());
@@ -89,14 +97,38 @@ namespace IZONE
             IZONE.Add(new Puppy());
             IZONE.Add(new GiantBaby());
 
-            _EarthquakeReport = new EarthquakeReport();
-            _EarthquakeReportList = new EarthquakeReportList();
-            _TsunamiReport = new TsunamiReport();
-            _TsunamiReportList = new TsunamiReportList();
+            _EarthquakeReport = new CommonServices.Earthquake.Method.EarthquakeReport();
+            _EarthquakeReportList = new CommonServices.Earthquake.Method.EarthquakeReportList();
+            _TsunamiReport = new CommonServices.Earthquake.Method.TsunamiReport();
+            _TsunamiReportList = new CommonServices.Earthquake.Method.TsunamiReportList();
+            _EarthquakeReport.InComming += EarthquakeReportCallback;
+            _EarthquakeReportList.InComming += EarthquakeReportListCallback;
+            _TsunamiReport.InComming += TsunamiReportCallback;
+            _TsunamiReportList.InComming += TsunamiReportListCallBack;
 
-            tmr_NaverScraping.Enabled = true;
+            //tmr_NaverScraping.Enabled = true;
 
-            lvBirthDayBitMap.SmallImageList = ImgLst_BirthDay;
+            ImgLst_BirthDay.ImageSize = new Size(32, 32);
+            lvBirthDayImages.LargeImageList = ImgLst_BirthDay; // LargeImageList를 사용하기 위해선 ListView.View 속성이 LargeIcon or Tile 이어야 한다.
+            lvBirthDayImages.SmallImageList = ImgLst_BirthDay; // SmallImageList를 사용하기 위해선 ListView.View 속성이 Details or SmallIcon or List 여야 한다.
+            lvBirthDayImages.View = View.LargeIcon;
+            AddImages();
+        }
+
+        private void AddImages()
+        {
+            int iKey = 0;
+
+            foreach (Member member in IZONE)
+            {
+                ImgLst_BirthDay.Images.Add(member.BirthDayImage);
+                lvBirthDayImages.Items.Add(member.Name, iKey++);
+            }
+        }
+
+        private void LvBirthDayImages_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            DoDragDrop(e.Item, DragDropEffects.Copy);
         }
 
         private void Scrapping()
@@ -107,7 +139,7 @@ namespace IZONE
         private void BirthDayChecker()
         {
             // 나중에 패턴 사용해서 if 문 삭제
-            if (IsKaKaoTalkOpen("이상준", out TgtHnd))
+            if (IsKaKaoTalkOpen(RoomName, out TgtHnd))
             // if (IsKaKaoTalkOpen("안고독한 아이즈원(IZ*ONE)", out ThtHnd))
             {
                 CurTime = DateTime.Now;
@@ -159,6 +191,49 @@ namespace IZONE
             Utils.SendMessage(hEdit, Utils.WM_SETTEXT, IntPtr.Zero, SendText);
             Utils.PostMessage(hEdit, Utils.WM_KEYDOWN, Utils.VK_ENTER, IntPtr.Zero);
             Utils.PostMessage(hEdit, Utils.WM_KEYUP, Utils.VK_ENTER, IntPtr.Zero);
+        }
+
+        #region Callbacks
+
+        private void EarthquakeReportCallback()
+        {
+            if (IsKaKaoTalkOpen(RoomName, out TgtHnd))
+            {
+                SendText(TgtHnd, MakeEarthquakeString(JObject.FromObject(_EarthquakeReport.EarthquakeReportRes)));
+            }
+        }
+
+        private void EarthquakeReportListCallback()
+        {
+            if (IsKaKaoTalkOpen(RoomName, out TgtHnd))
+            {
+                SendText(TgtHnd, MakeEarthquakeString(JObject.FromObject(_EarthquakeReportList.EarthquakeReportListRes)));
+            }
+        }
+
+        private void TsunamiReportCallback()
+        {
+            if (IsKaKaoTalkOpen(RoomName, out TgtHnd))
+            {
+                SendText(TgtHnd, MakeEarthquakeString(JObject.FromObject(_TsunamiReport.TsunamiReportRes)));
+            }
+        }
+
+        private void TsunamiReportListCallBack()
+        {
+            if (IsKaKaoTalkOpen(RoomName, out TgtHnd))
+            {
+                SendText(TgtHnd, MakeEarthquakeString(JObject.FromObject(_TsunamiReportList.TsunamiReportListRes)));
+            }
+        }
+
+        #endregion
+
+        private string MakeEarthquakeString(JObject obj)
+        {
+            string returnString = string.Empty;
+
+            return returnString;
         }
     }
 }

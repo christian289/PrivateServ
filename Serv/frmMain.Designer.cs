@@ -57,7 +57,6 @@
             // 
             // TP_IZONE
             // 
-            this.TP_IZONE.Controls.Add(this.IZONEController);
             this.TP_IZONE.Location = new System.Drawing.Point(4, 25);
             this.TP_IZONE.Name = "TP_IZONE";
             this.TP_IZONE.Padding = new System.Windows.Forms.Padding(3);

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CommonServices.Earthquake
+﻿namespace CommonServices.Earthquake
 {
     /// <summary>
     /// 서비스 API Endpoint URI 주소
