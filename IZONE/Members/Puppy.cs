@@ -14,7 +14,7 @@ namespace IZONE.Members
 
             BirthDayMessage = "윶시";
 
-            BirthDayImage = Image.FromFile(ImagePath.PuppyBirthDayImg);
+            BirthDayImage = Image.FromFile(ImagePathObj.PuppyBirthDayImg);
 
             Age = CalculateAge(BirthDay);
 

@@ -14,7 +14,7 @@ namespace IZONE.Members
 
             BirthDayMessage = "원영시";
 
-            BirthDayImage = Image.FromFile(ImagePath.GiantBabyBirthDayImg);
+            BirthDayImage = Image.FromFile(ImagePathObj.GiantBabyBirthDayImg);
 
             Age = CalculateAge(BirthDay);
 

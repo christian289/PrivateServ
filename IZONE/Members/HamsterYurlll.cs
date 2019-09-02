@@ -14,7 +14,7 @@ namespace IZONE.Members
 
             BirthDayMessage = "율시";
 
-            BirthDayImage = Image.FromFile(ImagePath.HamsterYurlllBirthDayImg);
+            BirthDayImage = Image.FromFile(ImagePathObj.HamsterYurlllBirthDayImg);
 
             Age = CalculateAge(BirthDay);
 

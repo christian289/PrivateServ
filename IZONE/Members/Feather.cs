@@ -14,7 +14,7 @@ namespace IZONE.Members
 
             BirthDayMessage = "깃털시";
 
-            BirthDayImage = Image.FromFile(ImagePath.FeatherBirthDayImg);
+            BirthDayImage = Image.FromFile(ImagePathObj.FeatherBirthDayImg);
 
             Age = CalculateAge(BirthDay);
 

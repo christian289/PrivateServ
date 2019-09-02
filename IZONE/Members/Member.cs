@@ -76,9 +76,12 @@ namespace IZONE.Members
         /// </summary>
         public string Color { get; set; }
 
+        public ImagePath ImagePathObj;
+
         public Member()
         {
-
+            ImagePathObj = new ImagePath();
+            ImagePathObj.Init();
         }
 
         public int CalculateAge(DateTime BirthDay)

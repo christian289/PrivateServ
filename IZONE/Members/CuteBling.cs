@@ -14,7 +14,7 @@ namespace IZONE.Members
 
             BirthDayMessage = "나코시";
 
-            BirthDayImage = Image.FromFile(ImagePath.CuteBlingBirthDayImg);
+            BirthDayImage = Image.FromFile(ImagePathObj.CuteBlingBirthDayImg);
 
             Age = CalculateAge(BirthDay);
 

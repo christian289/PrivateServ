@@ -14,7 +14,7 @@ namespace IZONE.Members
 
             BirthDayMessage = "개굴시";
 
-            BirthDayImage = Image.FromFile(ImagePath.FrogBirthDayImg);
+            BirthDayImage = Image.FromFile(ImagePathObj.FrogBirthDayImg);
 
             Age = CalculateAge(BirthDay);
 

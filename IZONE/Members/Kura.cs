@@ -14,7 +14,7 @@ namespace IZONE.Members
 
             BirthDayMessage = "쿠라시";
 
-            BirthDayImage = Image.FromFile(ImagePath.KuraBirthDayImg);
+            BirthDayImage = Image.FromFile(ImagePathObj.KuraBirthDayImg);
 
             Age = CalculateAge(BirthDay);
 

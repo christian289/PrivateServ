@@ -14,7 +14,7 @@ namespace IZONE.Members
 
             BirthDayMessage = "쌈무시";
 
-            BirthDayImage = Image.FromFile(ImagePath.RadishWrappingRollBirthDayImg);
+            BirthDayImage = Image.FromFile(ImagePathObj.RadishWrappingRollBirthDayImg);
 
             Age = CalculateAge(BirthDay);
 

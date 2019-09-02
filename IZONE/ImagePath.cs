@@ -2,32 +2,41 @@
 
 namespace IZONE
 {
-    public static class ImagePath
+    public class ImagePath
     {
-        private static string DefaultPath = Application.StartupPath + @"\BirthDay";
+        public string DefaultPath;
+        public string CaptainRabbitBirthDayImg;
+        public string KuraBirthDayImg;
+        public string KwangBaeBirthDayImg;
+        public string DuckBirthDayImg;
+        public string FeatherBirthDayImg;
+        public string RadishWrappingRollBirthDayImg;
+        public string FrogBirthDayImg;
+        public string CuteBlingBirthDayImg;
+        public string StrawberryBirthDayImg;
+        public string HamsterYurlllBirthDayImg;
+        public string PuppyBirthDayImg;
+        public string GiantBabyBirthDayImg;
 
-        public static string CaptainRabbitBirthDayImg = DefaultPath + @"\은비.jpg";
+        public ImagePath()
+        {            
+        }
 
-        public static string KuraBirthDayImg = DefaultPath + @"\사쿠라.jpg";
-
-        public static string KwangBaeBirthDayImg = DefaultPath + @"\혜원.jpg";
-
-        public static string DuckBirthDayImg = DefaultPath + @"\예나.jpg";
-
-        public static string FeatherBirthDayImg = DefaultPath + @"\채연.jpg";
-
-        public static string RadishWrappingRollBirthDayImg = DefaultPath + @"\채원.jpg";
-
-        public static string FrogBirthDayImg = DefaultPath + @"\민주.jpg";
-
-        public static string CuteBlingBirthDayImg = DefaultPath + @"\나코.jpg";
-
-        public static string StrawberryBirthDayImg = DefaultPath + @"\히토미.jpg";
-
-        public static string HamsterYurlllBirthDayImg = DefaultPath + @"\유리.jpg";
-
-        public static string PuppyBirthDayImg = DefaultPath + @"\유진.jpg";
-
-        public static string GiantBabyBirthDayImg = DefaultPath + @"\원영.jpg";
+        public void Init()
+        {
+            DefaultPath = Application.StartupPath + @"\BirthDay";
+            CaptainRabbitBirthDayImg = DefaultPath + @"\은비.jpg";
+            KuraBirthDayImg = DefaultPath + @"\사쿠라.jpg";
+            KwangBaeBirthDayImg = DefaultPath + @"\혜원.jpg";
+            DuckBirthDayImg = DefaultPath + @"\예나.jpg";
+            FeatherBirthDayImg = DefaultPath + @"\채연.jpg";
+            RadishWrappingRollBirthDayImg = DefaultPath + @"\채원.jpg";
+            FrogBirthDayImg = DefaultPath + @"\민주.jpg";
+            CuteBlingBirthDayImg = DefaultPath + @"\나코.jpg";
+            StrawberryBirthDayImg = DefaultPath + @"\히토미.jpg";
+            HamsterYurlllBirthDayImg = DefaultPath + @"\유리.jpg";
+            PuppyBirthDayImg = DefaultPath + @"\유진.jpg";
+            GiantBabyBirthDayImg = DefaultPath + @"\원영.jpg";
+        }
     }
 }
