@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using IZONE.Members;
 using Newtonsoft.Json.Linq;
+using CommonServices.Earthquake.Entity.Response;
+using Newtonsoft.Json;
 
 namespace IZONE
 {
@@ -29,11 +31,6 @@ namespace IZONE
         CommonServices.Earthquake.Method.EarthquakeReportList _EarthquakeReportList;
         CommonServices.Earthquake.Method.TsunamiReport _TsunamiReport;
         CommonServices.Earthquake.Method.TsunamiReportList _TsunamiReportList;
-
-        CommonServices.Earthquake.Entity.Response.EarthquakeReport _EarthquakeReportRes;
-        CommonServices.Earthquake.Entity.Response.EarthquakeReportList _EarthquakeReportListRes;
-        CommonServices.Earthquake.Entity.Response.TsunamiReport _TsunamiReportRes;
-        CommonServices.Earthquake.Entity.Response.TsunamiReportList _TsunamiReportListRes;
 
         public MasterCtl()
         {
@@ -70,9 +67,9 @@ namespace IZONE
             btnEarthquakeCheckStart.Click += delegate (object sender, EventArgs e)
             {
                 _EarthquakeReport.Service();
-                _EarthquakeReportList.Service();
-                _TsunamiReport.Service();
-                _TsunamiReportList.Service();
+                //_EarthquakeReportList.Service();
+                //_TsunamiReport.Service();
+                //_TsunamiReportList.Service();
             };
             btnEarthquakeCheckStop.Click += delegate (object sender, EventArgs e)
             {
@@ -199,7 +196,7 @@ namespace IZONE
         {
             if (IsKaKaoTalkOpen(RoomName, out TgtHnd))
             {
-                SendText(TgtHnd, MakeEarthquakeString(JObject.FromObject(_EarthquakeReport.EarthquakeReportRes)));
+                SendText(TgtHnd, MakeEarthquakeString(_EarthquakeReport));
             }
         }
 
@@ -207,7 +204,7 @@ namespace IZONE
         {
             if (IsKaKaoTalkOpen(RoomName, out TgtHnd))
             {
-                SendText(TgtHnd, MakeEarthquakeString(JObject.FromObject(_EarthquakeReportList.EarthquakeReportListRes)));
+                SendText(TgtHnd, MakeEarthquakeString(_EarthquakeReportList));
             }
         }
 
@@ -215,7 +212,7 @@ namespace IZONE
         {
             if (IsKaKaoTalkOpen(RoomName, out TgtHnd))
             {
-                SendText(TgtHnd, MakeEarthquakeString(JObject.FromObject(_TsunamiReport.TsunamiReportRes)));
+                SendText(TgtHnd, MakeEarthquakeString(_TsunamiReport));
             }
         }
 
@@ -223,19 +220,41 @@ namespace IZONE
         {
             if (IsKaKaoTalkOpen(RoomName, out TgtHnd))
             {
-                SendText(TgtHnd, MakeEarthquakeString(JObject.FromObject(_TsunamiReportList.TsunamiReportListRes)));
+                SendText(TgtHnd, MakeEarthquakeString(_TsunamiReportList));
             }
         }
 
         #endregion
 
-        private string MakeEarthquakeString(JObject obj)
+        private string MakeEarthquakeString(dynamic obj)
         {
-            string returnString = string.Empty;
+            Lazy<StringBuilder> sb = new Lazy<StringBuilder>();
 
+            if (obj.GetType().Equals(typeof(CommonServices.Earthquake.Method.EarthquakeReport)))
+            {
+                EarthquakeReport res = obj.EarthquakeReportRes;
+                sb.Value.Append(string.Format("[!!지진발생!!]"));
+                sb.Value.Append(string.Format("\n" + "분류 : {0}", obj.Level(res.fcTp)));
+                sb.Value.Append(string.Format("\n" + "위치 : {0}", res.loc));
+                sb.Value.Append(string.Format("\n" + "시각 : {0}년{1}월{2}일 {3}시{4}분", res.tmFc.Substring(0, 4), res.tmFc.Substring(4, 2), res.tmFc.Substring(6, 2), res.tmFc.Substring(8, 2), res.tmFc.Substring(10, 2)));                
+                sb.Value.Append(string.Format("\n" + "규모 : {0}", res.mt));
+                sb.Value.Append(string.Format("\n" + "깊이 : {0}KM", res.dep));
+                sb.Value.Append(string.Format("\n" + "지도 : {0}", res.img));
+            }
+            else if (obj.GetType().Equals(typeof(CommonServices.Earthquake.Method.EarthquakeReportList)))
+            {
+                EarthquakeReportList res = obj.EarthquakeReportListRes;
+            }
+            else if (obj.GetType().Equals(typeof(CommonServices.Earthquake.Method.TsunamiReport)))
+            {
+                TsunamiReport res = obj.TsunamiReportRes;
+            }
+            else if (obj.GetType().Equals(typeof(CommonServices.Earthquake.Method.TsunamiReportList)))
+            {
+                TsunamiReportList res = obj.TsunamiReportListRes;
+            }         
 
-
-            return returnString;
+            return sb.ToString();
         }
     }
 }

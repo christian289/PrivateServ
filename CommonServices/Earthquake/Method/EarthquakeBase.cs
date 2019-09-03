@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,71 @@ namespace CommonServices.Earthquake.Method
                 }
 
                 _TodayDT = value;
+            }
+        }
+
+        public string Level(string num)
+        {
+            switch(num)
+            {
+                case "2":
+                    return "국외 지진정보";
+                case "3":
+                    return "국내 지진정보";
+                case "5":
+                    return "국내 지진정보(재통보)";
+                case "11":
+                    return "국내 지진조기경보";
+                case "12":
+                    return "국외 지진조기경보";
+                case "13":
+                    return "조기경보 정밀분석";
+                case "14":
+                    return "지진속보(조기분석)";
+                default:
+                    return "";
+            }
+        }
+
+        public dynamic SelectiveParse(string RestfulValue, Type type)
+        {
+            JObject obj = JObject.Parse(RestfulValue);
+
+            if (type.Equals(typeof(Entity.Response.EarthquakeReport)))
+            {
+                Entity.Response.EarthquakeReport rtnValue = new Entity.Response.EarthquakeReport();
+
+                rtnValue.img = obj.Root["response"].Last.First["items"]["item"]["img"].ToString(); // 지진 이미지
+                rtnValue.tmFc = obj.Root["response"].Last.First["items"]["item"]["tmFc"].ToString(); // 지진 발령
+                rtnValue.tmSeq = obj.Root["response"].Last.First["items"]["item"]["tmSeq"].ToString(); // 지진 번호
+                rtnValue.tmEqk = obj.Root["response"].Last.First["items"]["item"]["tmEqk"].ToString(); // 지진 발령 상세
+                rtnValue.lat = obj.Root["response"].Last.First["items"]["item"]["lat"].ToString(); // 위도
+                rtnValue.lon = obj.Root["response"].Last.First["items"]["item"]["lon"].ToString(); // 경도
+                rtnValue.loc = obj.Root["response"].Last.First["items"]["item"]["loc"].ToString(); // 발생 위치
+                rtnValue.mt = obj.Root["response"].Last.First["items"]["item"]["mt"].ToString(); // 규모
+                rtnValue.dep = obj.Root["response"].Last.First["items"]["item"]["dep"].ToString(); // 깊이
+                rtnValue.rem = obj.Root["response"].Last.First["items"]["item"]["rem"].ToString(); // 설명
+                rtnValue.fcTp = obj.Root["response"].Last.First["items"]["item"]["fcTp"].ToString(); // 분류
+
+                return rtnValue;
+            }
+            else if (type.Equals(typeof(Entity.Response.EarthquakeReportList)))
+            {
+                Entity.Response.EarthquakeReportList rtnValue = new Entity.Response.EarthquakeReportList();
+
+                return rtnValue;
+            }
+            else if (type.Equals(typeof(Entity.Response.TsunamiReport)))
+            {
+                Entity.Response.TsunamiReport rtnValue = new Entity.Response.TsunamiReport();
+
+                return rtnValue;
+            }
+            else //if (type.Equals(typeof(Entity.Response.TsunamiReportList)))
+            {
+                Entity.Response.TsunamiReportList rtnValue = new Entity.Response.TsunamiReportList();
+
+                return rtnValue;
             }
         }
 

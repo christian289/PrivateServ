@@ -2,21 +2,27 @@
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using CommonServices.HttpComm;
+using Newtonsoft.Json;
 
 namespace CommonServices.Earthquake.Method
 {
     public class EarthquakeReport : EarthquakeBase
     {
+        Entity.Response.EarthquakeReport _EarthquakeReportRes;
+
         public Entity.Response.EarthquakeReport EarthquakeReportRes
         {
             get
             {
-                return EarthquakeReportRes;
+                return _EarthquakeReportRes;
             }
             private set
             {
-                EarthquakeReportRes = value;
-                InComming();
+                if (ReferenceEquals(_EarthquakeReportRes, null) || !_EarthquakeReportRes.tmEqk.Equals(value.tmEqk))
+                {
+                    _EarthquakeReportRes = value;
+                    InComming();
+                }
             }
         }
 
@@ -29,7 +35,7 @@ namespace CommonServices.Earthquake.Method
             int iCount = 1000; // Open API 사이트에서 제한한 횟수
 
             Entity.Request.EarthquakeReport Entity = new Entity.Request.EarthquakeReport();
-            Entity.fromTmFc = TodayDT.ToString("yyyyMMdd");
+            Entity.fromTmFc = (TodayDT.AddDays(-2)).ToString("yyyyMMdd"); // API가 3일 간 발생했던 것만 조회가능
             Entity.toTmFc = TodayDT.ToString("yyyyMMdd");
             Entity.ServiceKey = EarthquakeKey.Key;
             Entity.numOfRows = "10";
@@ -62,13 +68,13 @@ namespace CommonServices.Earthquake.Method
 
                 // 추후 Android Socket을 사용하게 되면 Socket으로 전송.
                 // 지금은 PC 카카오톡으로 전송
-                EarthquakeReportRes = JObject.Parse(
-                     await Comm.Instance.request(
-                         url: SiteURI.EarthquakeReport,
-                         method: Comm.METHOD_GET,
-                         postOrParamsData: JObject.FromObject(Entity).ToString()
-                         )
-                     ).ToObject<Entity.Response.EarthquakeReport>();
+                EarthquakeReportRes = SelectiveParse(await Comm.Instance.request
+                         (
+                            url: SiteURI.EarthquakeReport,
+                            method: Comm.METHOD_GET,
+                            postOrParamsData: JObject.FromObject(Entity).ToString()
+                         ), typeof(Entity.Response.EarthquakeReport)
+                     );
 
                 iCount--;
 

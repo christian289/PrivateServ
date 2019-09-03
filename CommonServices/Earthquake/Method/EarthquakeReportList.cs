@@ -7,16 +7,21 @@ namespace CommonServices.Earthquake.Method
 {
     public class EarthquakeReportList : EarthquakeBase
     {
+        Entity.Response.EarthquakeReportList _EarthquakeReportListRes;
+
         public Entity.Response.EarthquakeReportList EarthquakeReportListRes
         {
             get
             {
-                return EarthquakeReportListRes;
+                return _EarthquakeReportListRes;
             }
             private set
             {
-                EarthquakeReportListRes = value;
-                InComming();
+                if (ReferenceEquals(_EarthquakeReportListRes, null) || !_EarthquakeReportListRes.code.Equals(value.code))
+                {
+                    _EarthquakeReportListRes = value;
+                    InComming();
+                }                    
             }
         }
 
@@ -29,7 +34,7 @@ namespace CommonServices.Earthquake.Method
             int iCount = 1000; // Open API 사이트에서 제한한 횟수
 
             Entity.Request.EarthquakeReportList Entity = new Earthquake.Entity.Request.EarthquakeReportList();
-            Entity.fromTmFc = TodayDT.ToString("yyyyMMdd");
+            Entity.fromTmFc = (TodayDT.AddDays(-2)).ToString("yyyyMMdd"); // API가 3일 간 발생했던 것만 조회가능
             Entity.toTmFc = TodayDT.ToString("yyyyMMdd");
             Entity.ServiceKey = EarthquakeKey.Key;
             Entity.numOfRows = "10";
@@ -60,13 +65,12 @@ namespace CommonServices.Earthquake.Method
 
                 // 추후 Android Socket을 사용하게 되면 Socket으로 전송.
                 // 지금은 PC 카카오톡으로 전송
-                EarthquakeReportListRes = JObject.Parse(
-                     await Comm.Instance.request(
+                EarthquakeReportListRes = SelectiveParse(await Comm.Instance.request(
                          url: SiteURI.EarthquakeReportList,
                          method: Comm.METHOD_GET,
                          postOrParamsData: JObject.FromObject(Entity).ToString()
-                         )
-                     ).ToObject<Entity.Response.EarthquakeReportList>();
+                         ), typeof(Entity.Response.EarthquakeReportList)
+                     );
 
                 iCount--;
 

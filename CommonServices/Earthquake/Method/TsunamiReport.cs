@@ -7,16 +7,21 @@ namespace CommonServices.Earthquake.Method
 {
     public class TsunamiReport : EarthquakeBase
     {
+        Entity.Response.TsunamiReport _TsunamiReportRes;
+
         public Entity.Response.TsunamiReport TsunamiReportRes
         {
             get
             {
-                return TsunamiReportRes;
+                return _TsunamiReportRes;
             }
             private set
             {
-                TsunamiReportRes = value;
-                InComming();
+                if (ReferenceEquals(_TsunamiReportRes, null) || !_TsunamiReportRes.tmEqk.Equals(value.tmEqk))
+                {
+                    _TsunamiReportRes = value;
+                    InComming();
+                }                    
             }
         }
 
@@ -29,7 +34,7 @@ namespace CommonServices.Earthquake.Method
             int iCount = 1000; // Open API 사이트에서 제한한 횟수
 
             Entity.Request.TsunamiReport Entity = new Entity.Request.TsunamiReport();
-            Entity.fromTmFc = TodayDT.ToString("yyyyMMdd");
+            Entity.fromTmFc = (TodayDT.AddDays(-2)).ToString("yyyyMMdd"); // API가 3일 간 발생했던 것만 조회가능
             Entity.toTmFc = TodayDT.ToString("yyyyMMdd");
             Entity.ServiceKey = EarthquakeKey.Key;
             Entity.numOfRows = "10";
@@ -60,13 +65,12 @@ namespace CommonServices.Earthquake.Method
 
                 // 추후 Android Socket을 사용하게 되면 Socket으로 전송.
                 // 지금은 PC 카카오톡으로 전송
-                TsunamiReportRes = JObject.Parse(
-                     await Comm.Instance.request(
+                TsunamiReportRes = SelectiveParse(await Comm.Instance.request(
                          url: SiteURI.EarthquakeReport,
                          method: Comm.METHOD_GET,
                          postOrParamsData: JObject.FromObject(Entity).ToString()
-                         )
-                     ).ToObject<Entity.Response.TsunamiReport>();
+                         ), typeof(Entity.Response.TsunamiReport)
+                     );
 
                 iCount--;
 

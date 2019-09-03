@@ -7,16 +7,21 @@ namespace CommonServices.Earthquake.Method
 {
     public class TsunamiReportList : EarthquakeBase
     {
+        Entity.Response.TsunamiReportList _TsunamiReportListRes;
+
         public Entity.Response.TsunamiReportList TsunamiReportListRes
         {
             get
             {
-                return TsunamiReportListRes;
+                return _TsunamiReportListRes;
             }
             private set
             {
-                TsunamiReportListRes = value;
-                InComming();
+                if (ReferenceEquals(_TsunamiReportListRes, null) || !_TsunamiReportListRes.code.Equals(value.code))
+                {
+                    _TsunamiReportListRes = value;
+                    InComming();
+                }                    
             }
         }
 
@@ -29,7 +34,7 @@ namespace CommonServices.Earthquake.Method
             int iCount = 1000; // Open API 사이트에서 제한한 횟수
 
             Entity.Request.TsunamiReportList Entity = new Entity.Request.TsunamiReportList();
-            Entity.fromTmFc = TodayDT.ToString("yyyyMMdd");
+            Entity.fromTmFc = (TodayDT.AddDays(-2)).ToString("yyyyMMdd"); // API가 3일 간 발생했던 것만 조회가능
             Entity.toTmFc = TodayDT.ToString("yyyyMMdd");
             Entity.ServiceKey = EarthquakeKey.Key;
             Entity.numOfRows = "10";
@@ -60,13 +65,12 @@ namespace CommonServices.Earthquake.Method
 
                 // 추후 Android Socket을 사용하게 되면 Socket으로 전송.
                 // 지금은 PC 카카오톡으로 전송
-                TsunamiReportListRes = JObject.Parse(
-                     await Comm.Instance.request(
+                TsunamiReportListRes = SelectiveParse(await Comm.Instance.request(
                          url: SiteURI.EarthquakeReport,
                          method: Comm.METHOD_GET,
                          postOrParamsData: JObject.FromObject(Entity).ToString()
-                         )
-                     ).ToObject<Entity.Response.TsunamiReportList>();
+                         ), typeof(Entity.Response.TsunamiReportList)
+                     );
 
                 iCount--;
 

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using CommonServices.Earthquake;
+using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
 using System.Net;
@@ -69,9 +70,16 @@ namespace CommonServices.HttpComm
                         body.Append(keyValuePair.Key + "=" + keyValuePair.Value + "&");
                     }
 
-                    request = (HttpWebRequest)WebRequest.Create(url + "?" + body.ToString() + "");
+                    if (url.ToString().Contains(SiteURI.EarthquakeServiceDefaultPath))
+                    {
+                        request = (HttpWebRequest)WebRequest.Create(url + "?" + body.ToString() + "&type=json");
+                    }
+                    else
+                    {
+                        request = (HttpWebRequest)WebRequest.Create(url + "?" + body.ToString() + "");
+                    }
                     request.Credentials = CredentialCache.DefaultCredentials;
-                    ServicePointManager.ServerCertificateValidationCallback += new System.Net.Security.RemoteCertificateValidationCallback(VaildateServerCertificate);
+                    ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(VaildateServerCertificate);
                     request.KeepAlive = false;
                     request.ProtocolVersion = HttpVersion.Version10;
                     request.Method = "GET";
