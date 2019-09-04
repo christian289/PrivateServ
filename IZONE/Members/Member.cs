@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading.Tasks;
 
 namespace IZONE.Members
 {
-    public class Member
+    public class Member : IGetImage
     {
+        private Image _BirthDayImage;
+
         /// <summary>
         /// 성명
         /// </summary>
@@ -24,7 +27,24 @@ namespace IZONE.Members
         /// <summary>
         /// 생일 시 이미지
         /// </summary>
-        public Image BirthDayImage { get; set; }
+        public Image BirthDayImage
+        {
+            get
+            {
+                BirthDayImageReady = false;
+                FlagInit();
+                return _BirthDayImage;
+            }
+            protected set
+            {
+                _BirthDayImage = value;
+            }
+        }
+
+        /// <summary>
+        /// 이미지 가져감 여부
+        /// </summary>
+        public bool BirthDayImageReady { get; set; }
 
         /// <summary>
         /// 한국 기준 나이
@@ -76,22 +96,23 @@ namespace IZONE.Members
         /// </summary>
         public string Color { get; set; }
 
-        public ImagePath ImagePathObj;
-
         public Member()
         {
-            ImagePathObj = new ImagePath();
-            ImagePathObj.Init();
+            BirthDayImageReady = true;
         }
 
         public int CalculateAge(DateTime BirthDay)
         {
-            int age = new int();
-
             DateTime Today = DateTime.Today;
-            age = Today.Year - BirthDay.Year + 1;
+            int age = Today.Year - BirthDay.Year + 1;
 
             return age;
+        }
+
+        public async void FlagInit()
+        {
+            await Task.Delay(60000);
+            BirthDayImageReady = true;
         }
     }
 }

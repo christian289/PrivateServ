@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace IZONE.Members
 {
-    public class GiantBaby : Member
+    public sealed class GiantBaby : Member
     {
         public GiantBaby()
         {
@@ -14,7 +15,7 @@ namespace IZONE.Members
 
             BirthDayMessage = "원영시";
 
-            BirthDayImage = Image.FromFile(ImagePathObj.GiantBabyBirthDayImg);
+            BirthDayImage = Image.FromFile(Application.StartupPath + @"\BirthDayImage\원영.jpg");
 
             Age = CalculateAge(BirthDay);
 

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace IZONE.Members
 {
-    public class Kura : Member
+    public sealed class Kura : Member
     {
         public Kura()
         {
@@ -14,7 +15,7 @@ namespace IZONE.Members
 
             BirthDayMessage = "쿠라시";
 
-            BirthDayImage = Image.FromFile(ImagePathObj.KuraBirthDayImg);
+            BirthDayImage = Image.FromFile(Application.StartupPath + @"\BirthDayImage\사쿠라.jpg");
 
             Age = CalculateAge(BirthDay);
 

@@ -11,6 +11,7 @@ using IZONE.Members;
 using Newtonsoft.Json.Linq;
 using CommonServices.Earthquake.Entity.Response;
 using Newtonsoft.Json;
+using IZONE.Anniversarys;
 
 namespace IZONE
 {
@@ -21,11 +22,8 @@ namespace IZONE
         IntPtr TgtHnd;
         DateTime CurTime;
 
-        HtmlDocument _HtmlDocument;
-        HtmlElement _HtmlElement;
-        HtmlElementCollection _HtmlElementCollection;
-
         List<Member> IZONE;
+        List<Anniversary> Anniversary;
 
         CommonServices.Earthquake.Method.EarthquakeReport _EarthquakeReport;
         CommonServices.Earthquake.Method.EarthquakeReportList _EarthquakeReportList;
@@ -36,11 +34,14 @@ namespace IZONE
         {
             InitializeComponent();
 
+            btnBirthDayCheckStop.Enabled = false;
+            btnEarthquakeCheckStop.Enabled = false;
+
             tmr_BirthDayChecker.Tick += delegate (object sender, EventArgs e)
             {
                 tmr_BirthDayChecker.Enabled = false;
 
-                BirthDayChecker();
+                DayChecker();
 
                 tmr_BirthDayChecker.Enabled = true;
             };
@@ -66,6 +67,9 @@ namespace IZONE
             };
             btnEarthquakeCheckStart.Click += delegate (object sender, EventArgs e)
             {
+                btnEarthquakeCheckStart.Enabled = false;
+                btnEarthquakeCheckStop.Enabled = true;
+
                 _EarthquakeReport.Service();
                 //_EarthquakeReportList.Service();
                 //_TsunamiReport.Service();
@@ -73,12 +77,14 @@ namespace IZONE
             };
             btnEarthquakeCheckStop.Click += delegate (object sender, EventArgs e)
             {
+                btnEarthquakeCheckStop.Enabled = false;
+                btnEarthquakeCheckStart.Enabled = true;
+
                 _EarthquakeReport.bServiceControl = true;
-                _EarthquakeReportList.bServiceControl = true;
-                _TsunamiReport.bServiceControl = true;
-                _TsunamiReportList.bServiceControl = true;
+                //_EarthquakeReportList.bServiceControl = true;
+                //_TsunamiReport.bServiceControl = true;
+                //_TsunamiReportList.bServiceControl = true;
             };
-            lvBirthDayImages.ItemDrag += LvBirthDayImages_ItemDrag;
 
             IZONE = new List<Member>();
             IZONE.Add(new CaptainRabbit());
@@ -93,6 +99,9 @@ namespace IZONE
             IZONE.Add(new HamsterYurlll());
             IZONE.Add(new Puppy());
             IZONE.Add(new GiantBaby());
+
+            Anniversary = new List<Anniversary>();
+            Anniversary.Add(new Debut());
 
             _EarthquakeReport = new CommonServices.Earthquake.Method.EarthquakeReport();
             _EarthquakeReportList = new CommonServices.Earthquake.Method.EarthquakeReportList();
@@ -120,12 +129,8 @@ namespace IZONE
             {
                 ImgLst_BirthDay.Images.Add(member.BirthDayImage);
                 lvBirthDayImages.Items.Add(member.Name, iKey++);
+                member.BirthDayImageReady = true;
             }
-        }
-
-        private void LvBirthDayImages_ItemDrag(object sender, ItemDragEventArgs e)
-        {
-            DoDragDrop(e.Item, DragDropEffects.Copy);
         }
 
         private void Scrapping()
@@ -133,7 +138,7 @@ namespace IZONE
 
         }
 
-        private void BirthDayChecker()
+        private void DayChecker()
         {
             // 나중에 패턴 사용해서 if 문 삭제
             if (IsKaKaoTalkOpen(RoomName, out TgtHnd))
@@ -144,12 +149,52 @@ namespace IZONE
                 foreach (Member member in IZONE)
                 {
                     if (CurTime.ToString("hh").Equals(member.BirthDay.ToString("MM")) &&
-                        CurTime.ToString("mm").Equals(member.BirthDay.ToString("dd")))
+                        CurTime.ToString("mm").Equals(member.BirthDay.ToString("dd")) &&
+                        member.BirthDayImageReady)
                     {
+                        ImgClipBoardCopy(member.BirthDayImage);
+                        ImgClipBoardPaste(TgtHnd);
                         SendText(TgtHnd, member.BirthDayMessage);
                     }
                 }
+
+                foreach (Anniversary anniversary in Anniversary)
+                {
+                    if (CurTime.ToString("hh").Equals(anniversary.Time.ToString("MM")) &&
+                        CurTime.ToString("mm").Equals(anniversary.Time.ToString("dd")) &&
+                        anniversary.BirthDayImageReady)
+                    {
+                        ImgClipBoardCopy(anniversary.AnniversaryImage);
+                        ImgClipBoardPaste(TgtHnd);
+                        SendText(TgtHnd, anniversary.Announcement);
+                    }
+                }
             }
+        }
+
+        /// <summary>
+        ///  이미지를 클립보드에 복사
+        /// </summary>
+        /// <param name="image"></param>
+        private void ImgClipBoardCopy(Image image)
+        {
+            Clipboard.SetImage(image);
+        }
+
+        /// <summary>
+        /// 클립보드에 복사한 이미지를 활성화한 핸들에 Ctrl + V 이벤트 발생
+        /// </summary>
+        /// <param name="hEdit"></param>
+        private void ImgClipBoardPaste(IntPtr hEdit)
+        {
+            // 나중에 마우스 잠금 해야 함.
+            Utils.SetForegroundWindow(hEdit);
+            Utils.keybd_event(Utils.VK_LCONTROL, 0, Utils.KEYEVENTF_EXTENDEDKEY, 0);
+            Utils.keybd_event(Utils.VK_V, 0, Utils.KEYEVENTF_EXTENDEDKEY, 0);
+            Utils.keybd_event(Utils.VK_ENTER, 0, Utils.KEYEVENTF_EXTENDEDKEY, 0);
+            Utils.keybd_event(Utils.VK_LCONTROL, 0, Utils.KEYEVENTF_EXTENDEDKEY | Utils.KEYEVENTF_KEYUP, 0);
+            Utils.keybd_event(Utils.VK_V, 0, Utils.KEYEVENTF_EXTENDEDKEY | Utils.KEYEVENTF_KEYUP, 0);
+            Utils.keybd_event(Utils.VK_ENTER, 0, Utils.KEYEVENTF_EXTENDEDKEY | Utils.KEYEVENTF_KEYUP, 0);
         }
 
         private bool IsKaKaoTalkOpen(string RoomName, out IntPtr TgtHnd)
@@ -233,7 +278,7 @@ namespace IZONE
             if (obj.GetType().Equals(typeof(CommonServices.Earthquake.Method.EarthquakeReport)))
             {
                 EarthquakeReport res = obj.EarthquakeReportRes;
-                sb.Value.Append(string.Format("[!!지진발생!!]"));
+                sb.Value.Append(string.Format("[지진발생]"));
                 sb.Value.Append(string.Format("\n" + "분류 : {0}", obj.Level(res.fcTp)));
                 sb.Value.Append(string.Format("\n" + "위치 : {0}", res.loc));
                 sb.Value.Append(string.Format("\n" + "시각 : {0}년{1}월{2}일 {3}시{4}분", res.tmFc.Substring(0, 4), res.tmFc.Substring(4, 2), res.tmFc.Substring(6, 2), res.tmFc.Substring(8, 2), res.tmFc.Substring(10, 2)));                

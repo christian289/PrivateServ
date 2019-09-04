@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace IZONE.Members
 {
-    public class Feather : Member
+    public sealed class Feather : Member
     {
         public Feather()
         {
@@ -14,7 +15,7 @@ namespace IZONE.Members
 
             BirthDayMessage = "깃털시";
 
-            BirthDayImage = Image.FromFile(ImagePathObj.FeatherBirthDayImg);
+            BirthDayImage = Image.FromFile(Application.StartupPath + @"\BirthDayImage\채연.jpg");
 
             Age = CalculateAge(BirthDay);
 

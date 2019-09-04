@@ -48,7 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImagePath.cs" />
+    <Compile Include="Anniversarys\Anniversary.cs" />
+    <Compile Include="Anniversarys\Debut.cs" />
+    <Compile Include="IGetImage.cs" />
     <Compile Include="MasterCtl.cs">
       <SubType>UserControl</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -70,7 +72,6 @@
     <Compile Include="Members\Puppy.cs" />
     <Compile Include="Members\RadishWrappingRoll.cs" />
     <Compile Include="Members\strawberry.cs" />
-    <Compile Include="Msg.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
@@ -90,42 +91,46 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BirthDay\나코.jpg">
+    <Content Include="AnniversarysImage\Debut.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDay\민주.jpg">
+    <Content Include="BirthDayImage\나코.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDay\사쿠라.jpg">
+    <Content Include="BirthDayImage\민주.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDay\예나.jpg">
+    <Content Include="BirthDayImage\사쿠라.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDay\원영.jpg">
+    <Content Include="BirthDayImage\예나.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDay\유리.jpg">
+    <Content Include="BirthDayImage\원영.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDay\유진.jpg">
+    <Content Include="BirthDayImage\유리.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDay\은비.jpg">
+    <Content Include="BirthDayImage\유진.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDay\채연.jpg">
+    <Content Include="BirthDayImage\은비.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDay\채원.jpg">
+    <Content Include="BirthDayImage\채연.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDay\혜원.jpg">
+    <Content Include="BirthDayImage\채원.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDay\히토미.jpg">
+    <Content Include="BirthDayImage\혜원.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BirthDayImage\히토미.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

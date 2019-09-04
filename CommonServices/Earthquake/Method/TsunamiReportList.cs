@@ -20,8 +20,12 @@ namespace CommonServices.Earthquake.Method
                 if (ReferenceEquals(_TsunamiReportListRes, null) || !_TsunamiReportListRes.code.Equals(value.code))
                 {
                     _TsunamiReportListRes = value;
-                    InComming();
-                }                    
+
+                    if (!string.IsNullOrEmpty(_TsunamiReportListRes.code)) // Exception으로 인해 기본 생성자가 할당되었을 경우 Callback Pass
+                    {
+                        InComming();
+                    }   
+                }
             }
         }
 
@@ -63,14 +67,24 @@ namespace CommonServices.Earthquake.Method
                     await Task.Delay(100); // 계속 돌면 좀 거시기하니까 0.1초마다 도는 것으로.
                 }
 
-                // 추후 Android Socket을 사용하게 되면 Socket으로 전송.
-                // 지금은 PC 카카오톡으로 전송
-                TsunamiReportListRes = SelectiveParse(await Comm.Instance.request(
-                         url: SiteURI.EarthquakeReport,
-                         method: Comm.METHOD_GET,
-                         postOrParamsData: JObject.FromObject(Entity).ToString()
-                         ), typeof(Entity.Response.TsunamiReportList)
-                     );
+                try
+                {
+                    // 추후 Android Socket을 사용하게 되면 Socket으로 전송.
+                    // 지금은 PC 카카오톡으로 전송
+                    TsunamiReportListRes = SelectiveParse(await Comm.Instance.request(
+                             url: SiteURI.EarthquakeReport,
+                             method: Comm.METHOD_GET,
+                             postOrParamsData: JObject.FromObject(Entity).ToString()
+                             ), typeof(Entity.Response.TsunamiReportList)
+                         );
+                }
+                catch
+                {
+                    if (ReferenceEquals(TsunamiReportListRes, null))
+                    {
+                        TsunamiReportListRes = new Entity.Response.TsunamiReportList();
+                    }
+                }
 
                 iCount--;
 

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace IZONE.Members
 {
-    public class RadishWrappingRoll : Member
+    public sealed class RadishWrappingRoll : Member
     {
         public RadishWrappingRoll()
         {
@@ -14,7 +15,7 @@ namespace IZONE.Members
 
             BirthDayMessage = "쌈무시";
 
-            BirthDayImage = Image.FromFile(ImagePathObj.RadishWrappingRollBirthDayImg);
+            BirthDayImage = Image.FromFile(Application.StartupPath + @"\BirthDayImage\채원.jpg");
 
             Age = CalculateAge(BirthDay);
 

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace IZONE.Members
 {
-    public class Frog : Member
+    public sealed class Frog : Member
     {
         public Frog()
         {
@@ -14,7 +15,7 @@ namespace IZONE.Members
 
             BirthDayMessage = "개굴시";
 
-            BirthDayImage = Image.FromFile(ImagePathObj.FrogBirthDayImg);
+            BirthDayImage = Image.FromFile(Application.StartupPath + @"\BirthDayImage\민주.jpg");
 
             Age = CalculateAge(BirthDay);
 

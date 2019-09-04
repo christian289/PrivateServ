@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace IZONE.Members
 {
-    public class Strawberry : Member
+    public sealed class Strawberry : Member
     {
         public Strawberry()
         {
@@ -14,7 +15,7 @@ namespace IZONE.Members
 
             BirthDayMessage = "힡시";
 
-            BirthDayImage = Image.FromFile(ImagePathObj.StrawberryBirthDayImg);
+            BirthDayImage = Image.FromFile(Application.StartupPath + @"\BirthDayImage\히토미.jpg");
 
             Age = CalculateAge(BirthDay);
 

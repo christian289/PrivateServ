@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace IZONE.Members
 {
     /// <summary>
     /// 대장 토끼
     /// </summary>
-    public class CaptainRabbit : Member
+    public sealed class CaptainRabbit : Member
     {
         public CaptainRabbit()
         {
@@ -17,7 +18,7 @@ namespace IZONE.Members
 
             BirthDayMessage = "은비시";
 
-            BirthDayImage = Image.FromFile(ImagePathObj.CaptainRabbitBirthDayImg);
+            BirthDayImage = Image.FromFile(Application.StartupPath + @"\BirthDayImage\은비.jpg");
 
             Age = CalculateAge(BirthDay);
 

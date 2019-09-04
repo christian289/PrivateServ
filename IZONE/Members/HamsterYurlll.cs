@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace IZONE.Members
 {
-    public class HamsterYurlll : Member
+    public sealed class HamsterYurlll : Member
     {
         public HamsterYurlll()
         {
@@ -14,7 +15,7 @@ namespace IZONE.Members
 
             BirthDayMessage = "율시";
 
-            BirthDayImage = Image.FromFile(ImagePathObj.HamsterYurlllBirthDayImg);
+            BirthDayImage = Image.FromFile(Application.StartupPath + @"\BirthDayImage\유리.jpg");
 
             Age = CalculateAge(BirthDay);
 

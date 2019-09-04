@@ -62,39 +62,55 @@ namespace CommonServices.Earthquake.Method
 
             if (type.Equals(typeof(Entity.Response.EarthquakeReport)))
             {
-                Entity.Response.EarthquakeReport rtnValue = new Entity.Response.EarthquakeReport();
+                try
+                {
+                    Entity.Response.EarthquakeReport rtnValue = new Entity.Response.EarthquakeReport();
 
-                rtnValue.img = obj.Root["response"].Last.First["items"]["item"]["img"].ToString(); // 지진 이미지
-                rtnValue.tmFc = obj.Root["response"].Last.First["items"]["item"]["tmFc"].ToString(); // 지진 발령
-                rtnValue.tmSeq = obj.Root["response"].Last.First["items"]["item"]["tmSeq"].ToString(); // 지진 번호
-                rtnValue.tmEqk = obj.Root["response"].Last.First["items"]["item"]["tmEqk"].ToString(); // 지진 발령 상세
-                rtnValue.lat = obj.Root["response"].Last.First["items"]["item"]["lat"].ToString(); // 위도
-                rtnValue.lon = obj.Root["response"].Last.First["items"]["item"]["lon"].ToString(); // 경도
-                rtnValue.loc = obj.Root["response"].Last.First["items"]["item"]["loc"].ToString(); // 발생 위치
-                rtnValue.mt = obj.Root["response"].Last.First["items"]["item"]["mt"].ToString(); // 규모
-                rtnValue.dep = obj.Root["response"].Last.First["items"]["item"]["dep"].ToString(); // 깊이
-                rtnValue.rem = obj.Root["response"].Last.First["items"]["item"]["rem"].ToString(); // 설명
-                rtnValue.fcTp = obj.Root["response"].Last.First["items"]["item"]["fcTp"].ToString(); // 분류
+                    rtnValue.img = obj.Root["response"].Last.First["items"]["item"]["img"].ToString(); // 지진 이미지
+                    rtnValue.tmFc = obj.Root["response"].Last.First["items"]["item"]["tmFc"].ToString(); // 지진 발령
+                    rtnValue.tmSeq = obj.Root["response"].Last.First["items"]["item"]["tmSeq"].ToString(); // 지진 번호
+                    rtnValue.tmEqk = obj.Root["response"].Last.First["items"]["item"]["tmEqk"].ToString(); // 지진 발령 상세
+                    rtnValue.lat = obj.Root["response"].Last.First["items"]["item"]["lat"].ToString(); // 위도
+                    rtnValue.lon = obj.Root["response"].Last.First["items"]["item"]["lon"].ToString(); // 경도
+                    rtnValue.loc = obj.Root["response"].Last.First["items"]["item"]["loc"].ToString(); // 발생 위치
+                    rtnValue.mt = obj.Root["response"].Last.First["items"]["item"]["mt"].ToString(); // 규모
+                    rtnValue.dep = obj.Root["response"].Last.First["items"]["item"]["dep"].ToString(); // 깊이
+                    rtnValue.rem = obj.Root["response"].Last.First["items"]["item"]["rem"].ToString(); // 설명
+                    rtnValue.fcTp = obj.Root["response"].Last.First["items"]["item"]["fcTp"].ToString(); // 분류
 
-                return rtnValue;
+                    return rtnValue;
+                }
+                catch { throw; }
             }
             else if (type.Equals(typeof(Entity.Response.EarthquakeReportList)))
             {
-                Entity.Response.EarthquakeReportList rtnValue = new Entity.Response.EarthquakeReportList();
+                try
+                {
+                    Entity.Response.EarthquakeReportList rtnValue = new Entity.Response.EarthquakeReportList();
 
-                return rtnValue;
+                    return rtnValue;
+                }
+                catch { throw; }
             }
             else if (type.Equals(typeof(Entity.Response.TsunamiReport)))
             {
-                Entity.Response.TsunamiReport rtnValue = new Entity.Response.TsunamiReport();
+                try
+                {
+                    Entity.Response.TsunamiReport rtnValue = new Entity.Response.TsunamiReport();
 
-                return rtnValue;
+                    return rtnValue;
+                }
+                catch { throw; }
             }
             else //if (type.Equals(typeof(Entity.Response.TsunamiReportList)))
             {
-                Entity.Response.TsunamiReportList rtnValue = new Entity.Response.TsunamiReportList();
+                try
+                {
+                    Entity.Response.TsunamiReportList rtnValue = new Entity.Response.TsunamiReportList();
 
-                return rtnValue;
+                    return rtnValue;
+                }
+                catch { throw; }
             }
         }
 
