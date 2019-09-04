@@ -17,6 +17,8 @@ namespace IZONE
 {
     public partial class MasterCtl : UserControl
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         private const string RoomName = "이상준";
 
         IntPtr TgtHnd;
@@ -102,6 +104,7 @@ namespace IZONE
 
             Anniversary = new List<Anniversary>();
             Anniversary.Add(new Debut());
+            Anniversary.Add(new Violeta());
 
             _EarthquakeReport = new CommonServices.Earthquake.Method.EarthquakeReport();
             _EarthquakeReportList = new CommonServices.Earthquake.Method.EarthquakeReportList();
@@ -154,7 +157,9 @@ namespace IZONE
                     {
                         ImgClipBoardCopy(member.BirthDayImage);
                         ImgClipBoardPaste(TgtHnd);
+                        log.Info(member.Name + "시 이미지 전송 완료");
                         SendText(TgtHnd, member.BirthDayMessage);
+                        log.Info(member.Name + "시 텍스트 전송 완료");
                     }
                 }
 
@@ -166,7 +171,9 @@ namespace IZONE
                     {
                         ImgClipBoardCopy(anniversary.AnniversaryImage);
                         ImgClipBoardPaste(TgtHnd);
+                        log.Info(anniversary.Name + "시 이미지 전송 완료");
                         SendText(TgtHnd, anniversary.Announcement);
+                        log.Info(anniversary.Name + "시 이미지 전송 완료");
                     }
                 }
             }
@@ -242,6 +249,7 @@ namespace IZONE
             if (IsKaKaoTalkOpen(RoomName, out TgtHnd))
             {
                 SendText(TgtHnd, MakeEarthquakeString(_EarthquakeReport));
+                log.Info("EarthquakeReport 지진 재난 정보 전송 완료");
             }
         }
 
@@ -250,6 +258,7 @@ namespace IZONE
             if (IsKaKaoTalkOpen(RoomName, out TgtHnd))
             {
                 SendText(TgtHnd, MakeEarthquakeString(_EarthquakeReportList));
+                log.Info("EarthquakeReportList 지진 재난 정보 전송 완료");
             }
         }
 
@@ -258,6 +267,7 @@ namespace IZONE
             if (IsKaKaoTalkOpen(RoomName, out TgtHnd))
             {
                 SendText(TgtHnd, MakeEarthquakeString(_TsunamiReport));
+                log.Info("TsunamiReport 해일 재난 정보 전송 완료");
             }
         }
 
@@ -266,6 +276,7 @@ namespace IZONE
             if (IsKaKaoTalkOpen(RoomName, out TgtHnd))
             {
                 SendText(TgtHnd, MakeEarthquakeString(_TsunamiReportList));
+                log.Info("TsunamiReportList 해일 재난 정보 전송 완료");
             }
         }
 
