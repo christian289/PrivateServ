@@ -20,7 +20,8 @@ namespace IZONE
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private const string RoomName = "이상준";
+        //private const string RoomName = "이상준";
+        private const string RoomName = "안고독한 아이즈원(IZ*ONE)";
 
         IntPtr TgtHnd;
         DateTime CurTime;
@@ -146,7 +147,6 @@ namespace IZONE
         {
             // 나중에 패턴 사용해서 if 문 삭제
             if (IsKaKaoTalkOpen(RoomName, out TgtHnd))
-            // if (IsKaKaoTalkOpen("안고독한 아이즈원(IZ*ONE)", out ThtHnd))
             {
                 CurTime = DateTime.Now;
 
