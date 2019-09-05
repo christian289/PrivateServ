@@ -13,10 +13,9 @@ namespace IZONE.Anniversarys
         public Violeta()
         {
             Name = "대한민국 2집 비올레타 발매 기념";
-            Time = new DateTime(2019, 4, 21);
+            Time = new DateTime(2019, 4, 1);
             BirthDayImageReady = true;
-            //AnniversaryImage = Image.FromFile(Application.StartupPath + @"\AnniversarysImage\Violeta.jpg");
-            AnniversaryImage = Image.FromFile(Application.StartupPath + @"\AnniversarysImage\Debut.jpg");
+            AnniversaryImage = Image.FromFile(Application.StartupPath + @"\AnniversarysImage\Violeta.jpg");
             Announcement = "비올시";
         }
     }

@@ -15,7 +15,7 @@ namespace IZONE.Anniversarys
             Name = "데뷔";
             Time = new DateTime(2018, 10, 29);
             BirthDayImageReady = true;
-            AnniversaryImage = Image.FromFile(Application.StartupPath + @"\AnniversarysImage\Debut.jpg");
+            AnniversaryImage = Image.FromFile(Application.StartupPath + @"\AnniversarysImage\Debut2.jpg");
             Announcement = "데뷔시";
         }
     }

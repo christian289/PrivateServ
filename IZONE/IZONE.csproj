@@ -101,6 +101,12 @@
     <Content Include="AnniversarysImage\Debut.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="AnniversarysImage\Debut2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AnniversarysImage\Violeta.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="BirthDayImage\나코.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
