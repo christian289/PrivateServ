@@ -238,8 +238,10 @@ namespace IZONE
         public void SendText(IntPtr hEdit, string SendText)
         {
             Utils.SendMessage(hEdit, Utils.WM_SETTEXT, IntPtr.Zero, SendText);
-            Utils.PostMessage(hEdit, Utils.WM_KEYDOWN, Utils.VK_ENTER, IntPtr.Zero);
-            Utils.PostMessage(hEdit, Utils.WM_KEYUP, Utils.VK_ENTER, IntPtr.Zero);
+            //Utils.PostMessage(hEdit, Utils.WM_KEYDOWN, Utils.VK_ENTER, IntPtr.Zero); // 이미지 전송과 함께 사용할 경우 동작하지 않음.
+            //Utils.PostMessage(hEdit, Utils.WM_KEYUP, Utils.VK_ENTER, IntPtr.Zero); // 이미지 전송과 함께 사용할 경우 동작하지 않음.
+            Utils.keybd_event(Utils.VK_ENTER, 0, Utils.KEYEVENTF_EXTENDEDKEY, 0);
+            Utils.keybd_event(Utils.VK_ENTER, 0, Utils.KEYEVENTF_EXTENDEDKEY | Utils.KEYEVENTF_KEYUP, 0);
         }
 
         #region Callbacks
