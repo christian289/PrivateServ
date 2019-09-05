@@ -57,11 +57,9 @@
     <Compile Include="IGetImage.cs" />
     <Compile Include="MasterCtl.cs">
       <SubType>UserControl</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="MasterCtl.Designer.cs">
       <DependentUpon>MasterCtl.cs</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Members\CaptainRabbit.cs" />
     <Compile Include="Members\CuteBling.cs" />
@@ -82,7 +80,6 @@
   <ItemGroup>
     <EmbeddedResource Include="MasterCtl.resx">
       <DependentUpon>MasterCtl.cs</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

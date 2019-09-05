@@ -12,6 +12,7 @@ using Newtonsoft.Json.Linq;
 using CommonServices.Earthquake.Entity.Response;
 using Newtonsoft.Json;
 using IZONE.Anniversarys;
+using System.Reflection;
 
 namespace IZONE
 {
