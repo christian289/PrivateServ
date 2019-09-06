@@ -51,10 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Anniversarys\AnniRegist.cs" />
     <Compile Include="Anniversarys\Anniversary.cs" />
     <Compile Include="Anniversarys\Debut.cs" />
     <Compile Include="Anniversarys\Violeta.cs" />
-    <Compile Include="IGetImage.cs" />
     <Compile Include="MasterCtl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -71,6 +71,7 @@
     <Compile Include="Members\Kura.cs" />
     <Compile Include="Members\KwangBae.cs" />
     <Compile Include="Members\Member.cs" />
+    <Compile Include="Members\MemberRegist.cs" />
     <Compile Include="Members\Puppy.cs" />
     <Compile Include="Members\RadishWrappingRoll.cs" />
     <Compile Include="Members\strawberry.cs" />
@@ -95,52 +96,90 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AnniversarysImage\Debut.jpg">
+    <Content Include="AnniversarysImage\Debut_오후.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="AnniversarysImage\Debut2.jpg">
+    <Content Include="AnniversarysImage\Debut_오전.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="AnniversarysImage\Violeta.jpg">
+    <Content Include="AnniversarysImage\Violeta_오전.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDayImage\나코.jpg">
+    <Content Include="AnniversarysImage\Violeta_오후.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDayImage\민주.jpg">
+    <Content Include="BirthDayImage\나코_오전.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDayImage\사쿠라.jpg">
+    <Content Include="BirthDayImage\나코_오후.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDayImage\예나.jpg">
+    <Content Include="BirthDayImage\민주_오전.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDayImage\원영.jpg">
+    <Content Include="BirthDayImage\민주_오후.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDayImage\유리.jpg">
+    <Content Include="BirthDayImage\사쿠라_오전.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDayImage\유진.jpg">
+    <Content Include="BirthDayImage\사쿠라_오후.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDayImage\은비.jpg">
+    <Content Include="BirthDayImage\예나_오전.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDayImage\채연.jpg">
+    <Content Include="BirthDayImage\예나_오후.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDayImage\채원.jpg">
+    <Content Include="BirthDayImage\원영_오전.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDayImage\혜원.jpg">
+    <Content Include="BirthDayImage\원영_오후.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BirthDayImage\히토미.jpg">
+    <Content Include="BirthDayImage\유리_오전.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BirthDayImage\유리_오후.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BirthDayImage\유진_오전.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BirthDayImage\유진_오후.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BirthDayImage\은비_오전.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BirthDayImage\은비_오후.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BirthDayImage\채연_오전.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BirthDayImage\채연_오후.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BirthDayImage\채원_오전.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BirthDayImage\채원_오후.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BirthDayImage\혜원_오전.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BirthDayImage\혜원_오후.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BirthDayImage\히토미_오전.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BirthDayImage\히토미_오후.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -15,7 +15,9 @@ namespace IZONE.Members
 
             BirthDayMessage = "쌈무시";
 
-            BirthDayImage = Image.FromFile(Application.StartupPath + @"\BirthDayImage\채원.jpg");
+            BirthDayImage_AM = Image.FromFile(Application.StartupPath + @"\BirthDayImage\채원_오전.jpg");
+
+            BirthDayImage_PM = Image.FromFile(Application.StartupPath + @"\BirthDayImage\채원_오후.jpg");
 
             Age = CalculateAge(BirthDay);
 

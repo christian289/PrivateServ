@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace IZONE.Members
 {
-    public class Member : IGetImage
+    public class Member
     {
-        private Image _BirthDayImage;
+        private Image _BirthDayImage_AM;
+        private Image _BirthDayImage_PM;
 
         /// <summary>
         /// 성명
@@ -25,26 +26,48 @@ namespace IZONE.Members
         public string BirthDayMessage { get; set; }
 
         /// <summary>
-        /// 생일 시 이미지
+        /// 생일 시 이미지(오전)
         /// </summary>
-        public Image BirthDayImage
+        public Image BirthDayImage_AM
         {
             get
             {
-                BirthDayImageReady = false;
-                FlagInit();
-                return _BirthDayImage;
+                BirthDayImageReady_AM = false;
+                FlagInit(true);
+                return _BirthDayImage_AM;
             }
             protected set
             {
-                _BirthDayImage = value;
+                _BirthDayImage_AM = value;
             }
         }
 
         /// <summary>
-        /// 이미지 가져감 여부
+        /// 생일 시 이미지(오후)
         /// </summary>
-        public bool BirthDayImageReady { get; set; }
+        public Image BirthDayImage_PM
+        {
+            get
+            {
+                BirthDayImageReady_PM = false;
+                FlagInit(false);
+                return _BirthDayImage_PM;
+            }
+            protected set
+            {
+                _BirthDayImage_PM = value;
+            }
+        }
+
+        /// <summary>
+        /// 오전 이미지 가져감 여부
+        /// </summary>
+        public bool BirthDayImageReady_AM { get; set; }
+
+        /// <summary>
+        /// 오후 이미지 가져감 여부
+        /// </summary>
+        public bool BirthDayImageReady_PM { get; set; }
 
         /// <summary>
         /// 한국 기준 나이
@@ -98,7 +121,8 @@ namespace IZONE.Members
 
         public Member()
         {
-            BirthDayImageReady = true;
+            BirthDayImageReady_AM = true;
+            BirthDayImageReady_PM = true;
         }
 
         public int CalculateAge(DateTime BirthDay)
@@ -109,10 +133,22 @@ namespace IZONE.Members
             return age;
         }
 
-        public async void FlagInit()
+        /// <summary>
+        /// 이미지 가져감 플래그
+        /// </summary>
+        /// <param name="AMPM">true: 오전, false: 오후</param>
+        public async void FlagInit(bool AMPM)
         {
             await Task.Delay(60000);
-            BirthDayImageReady = true;
+
+            if (AMPM)
+            {
+                BirthDayImageReady_AM = true;
+            }
+            else
+            {
+                BirthDayImageReady_AM = true;
+            }
         }
     }
 }

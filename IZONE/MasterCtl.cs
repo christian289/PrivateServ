@@ -18,10 +18,10 @@ namespace IZONE
 {
     public partial class MasterCtl : UserControl
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        //private const string RoomName = "이상준";
-        private const string RoomName = "안고독한 아이즈원(IZ*ONE)";
+        private const string RoomName = "이상준";
+        //private const string RoomName = "안고독한 아이즈원(IZ*ONE)";
 
         IntPtr TgtHnd;
         DateTime CurTime;
@@ -90,23 +90,8 @@ namespace IZONE
                 //_TsunamiReportList.bServiceControl = true;
             };
 
-            IZONE = new List<Member>();
-            IZONE.Add(new CaptainRabbit());
-            IZONE.Add(new Kura());
-            IZONE.Add(new KwangBae());
-            IZONE.Add(new Duck());
-            IZONE.Add(new Feather());
-            IZONE.Add(new RadishWrappingRoll());
-            IZONE.Add(new Frog());
-            IZONE.Add(new CuteBling());
-            IZONE.Add(new Strawberry());
-            IZONE.Add(new HamsterYurlll());
-            IZONE.Add(new Puppy());
-            IZONE.Add(new GiantBaby());
-
-            Anniversary = new List<Anniversary>();
-            Anniversary.Add(new Debut());
-            Anniversary.Add(new Violeta());
+            IZONE = new MemberRegist().Regist();
+            Anniversary = new AnniRegist().Regist();
 
             _EarthquakeReport = new CommonServices.Earthquake.Method.EarthquakeReport();
             _EarthquakeReportList = new CommonServices.Earthquake.Method.EarthquakeReportList();
@@ -132,9 +117,12 @@ namespace IZONE
 
             foreach (Member member in IZONE)
             {
-                ImgLst_BirthDay.Images.Add(member.BirthDayImage);
+                ImgLst_BirthDay.Images.Add(member.BirthDayImage_AM);
+                ImgLst_BirthDay.Images.Add(member.BirthDayImage_PM);
                 lvBirthDayImages.Items.Add(member.Name, iKey++);
-                member.BirthDayImageReady = true;
+                lvBirthDayImages.Items.Add(member.Name, iKey++);
+                member.BirthDayImageReady_AM = true;
+                member.BirthDayImageReady_PM = true;
             }
         }
 
@@ -154,13 +142,15 @@ namespace IZONE
                 {
                     if (CurTime.ToString("hh").Equals(member.BirthDay.ToString("MM")) &&
                         CurTime.ToString("mm").Equals(member.BirthDay.ToString("dd")) &&
-                        member.BirthDayImageReady)
+                        member.BirthDayImageReady_AM)
                     {
-                        ImgClipBoardCopy(member.BirthDayImage);
-                        ImgClipBoardPaste(TgtHnd);
-                        log.Info(member.Name + "시 이미지 전송 완료");
-                        SendText(TgtHnd, member.BirthDayMessage);
-                        log.Info(member.Name + "시 텍스트 전송 완료");
+                        Send(true, member.Name, member.BirthDayImage_PM, TgtHnd, member.BirthDayMessage);
+                    }
+                    else if (CurTime.ToString("HH").Equals(member.BirthDay.ToString("MM")) &&
+                        CurTime.ToString("mm").Equals(member.BirthDay.ToString("dd")) &&
+                        member.BirthDayImageReady_PM)
+                    {
+                        Send(false, member.Name, member.BirthDayImage_PM, TgtHnd, member.BirthDayMessage);
                     }
                 }
 
@@ -168,16 +158,36 @@ namespace IZONE
                 {
                     if (CurTime.ToString("hh").Equals(anniversary.Time.ToString("MM")) &&
                         CurTime.ToString("mm").Equals(anniversary.Time.ToString("dd")) &&
-                        anniversary.BirthDayImageReady)
+                        anniversary.AnniversaryImageReady_AM)
                     {
-                        ImgClipBoardCopy(anniversary.AnniversaryImage);
-                        ImgClipBoardPaste(TgtHnd);
-                        log.Info(anniversary.Name + "시 이미지 전송 완료");
-                        SendText(TgtHnd, anniversary.Announcement);
-                        log.Info(anniversary.Name + "시 이미지 전송 완료");
+                        Send(true, anniversary.Name, anniversary.AnniversaryImage_PM, TgtHnd, anniversary.Announcement);
+                    }
+                    else if (CurTime.ToString("HH").Equals(anniversary.Time.ToString("MM")) &&
+                        CurTime.ToString("mm").Equals(anniversary.Time.ToString("dd")) &&
+                        anniversary.AnniversaryImageReady_PM)
+                    {
+                        Send(false, anniversary.Name, anniversary.AnniversaryImage_PM, TgtHnd, anniversary.Announcement);
                     }
                 }
             }
+        }
+
+        private void Send(bool AMPM, string MemberName, Image TargetImage, IntPtr Handle, string Announcement)
+        {
+            ImgClipBoardCopy(TargetImage);
+            ImgClipBoardPaste(Handle);
+
+            if (AMPM)
+            {
+                log.Info(MemberName + "시 오전 이미지 전송 완료");
+            }
+            else
+            {
+                log.Info(MemberName + "시 오후 이미지 전송 완료");
+            }
+            
+            SendText(TgtHnd, Announcement);
+            log.Info(MemberName + "시 이미지 전송 완료");
         }
 
         /// <summary>

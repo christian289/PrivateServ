@@ -13,9 +13,13 @@ namespace IZONE.Anniversarys
         public Debut()
         {
             Name = "데뷔";
+
             Time = new DateTime(2018, 10, 29);
-            BirthDayImageReady = true;
-            AnniversaryImage = Image.FromFile(Application.StartupPath + @"\AnniversarysImage\Debut2.jpg");
+
+            AnniversaryImage_AM = Image.FromFile(Application.StartupPath + @"\AnniversarysImage\Debut_오전.jpg");
+
+            AnniversaryImage_PM = Image.FromFile(Application.StartupPath + @"\AnniversarysImage\Debut_오후.jpg");
+
             Announcement = "데뷔시";
         }
     }

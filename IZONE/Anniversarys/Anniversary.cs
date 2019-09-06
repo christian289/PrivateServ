@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 
 namespace IZONE.Anniversarys
 {
-    public class Anniversary : IGetImage
+    public class Anniversary
     {
-        private Image _AnniversaryImage;
+        private Image _AnniversaryImage_AM;
+        private Image _AnniversaryImage_PM;
 
-        public bool BirthDayImageReady { get; set; }
+        public bool AnniversaryImageReady_AM { get; set; }
+
+        public bool AnniversaryImageReady_PM { get; set; }
 
         /// <summary>
         /// 기념일 이름
@@ -21,19 +24,39 @@ namespace IZONE.Anniversarys
         /// <summary>
         /// 기념일 시
         /// </summary>
-        public DateTime Time { get; set; }        
+        public DateTime Time { get; set; }
 
-        public Image AnniversaryImage
+        /// <summary>
+        /// 오전 기념일 이미지
+        /// </summary>
+        public Image AnniversaryImage_AM
         {
             get
             {
-                BirthDayImageReady = false;
-                FlagInit();
-                return _AnniversaryImage;
+                AnniversaryImageReady_AM = false;
+                FlagInit(true);
+                return _AnniversaryImage_AM;
             }
             protected set
             {
-                _AnniversaryImage = value;
+                _AnniversaryImage_AM = value;
+            }
+        }
+
+        /// <summary>
+        /// 오후 기념일 이미지
+        /// </summary>
+        public Image AnniversaryImage_PM
+        {
+            get
+            {
+                AnniversaryImageReady_PM = false;
+                FlagInit(false);
+                return _AnniversaryImage_PM;
+            }
+            protected set
+            {
+                _AnniversaryImage_PM = value;
             }
         }
 
@@ -41,13 +64,26 @@ namespace IZONE.Anniversarys
 
         public Anniversary()
         {
-            BirthDayImageReady = true;
+            AnniversaryImageReady_AM = true;
+            AnniversaryImageReady_PM = true;
         }
 
-        public async void FlagInit()
+        /// <summary>
+        /// 이미지 가져감 플래그 초기화
+        /// </summary>
+        /// <param name="AMPM">true: 오전, false: 오후</param>
+        public async void FlagInit(bool AMPM)
         {
             await Task.Delay(60000);
-            BirthDayImageReady = true;
+
+            if (AMPM)
+            {
+                AnniversaryImageReady_AM = true;
+            }
+            else
+            {
+                AnniversaryImageReady_PM = true;
+            }
         }
     }
 }
