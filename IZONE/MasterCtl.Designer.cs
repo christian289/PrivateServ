@@ -30,6 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.grpRoomSet = new System.Windows.Forms.GroupBox();
+            this.lblRoomName = new System.Windows.Forms.Label();
+            this.txtRoomName = new System.Windows.Forms.TextBox();
             this.grpFunctionList = new System.Windows.Forms.GroupBox();
             this.btnEarthquakeCheckStop = new System.Windows.Forms.Button();
             this.btnBirthDayCheckStop = new System.Windows.Forms.Button();
@@ -42,12 +45,14 @@
             this.tmr_BirthDayChecker = new System.Windows.Forms.Timer(this.components);
             this.tmr_NaverScraping = new System.Windows.Forms.Timer(this.components);
             this.pnlMain.SuspendLayout();
+            this.grpRoomSet.SuspendLayout();
             this.grpFunctionList.SuspendLayout();
             this.grpCheckLog.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.grpRoomSet);
             this.pnlMain.Controls.Add(this.grpFunctionList);
             this.pnlMain.Controls.Add(this.grpCheckLog);
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -56,6 +61,33 @@
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(890, 453);
             this.pnlMain.TabIndex = 0;
+            // 
+            // grpRoomSet
+            // 
+            this.grpRoomSet.Controls.Add(this.lblRoomName);
+            this.grpRoomSet.Controls.Add(this.txtRoomName);
+            this.grpRoomSet.Location = new System.Drawing.Point(547, 361);
+            this.grpRoomSet.Name = "grpRoomSet";
+            this.grpRoomSet.Size = new System.Drawing.Size(327, 79);
+            this.grpRoomSet.TabIndex = 3;
+            this.grpRoomSet.TabStop = false;
+            this.grpRoomSet.Text = "목표 채팅방";
+            // 
+            // lblRoomName
+            // 
+            this.lblRoomName.Location = new System.Drawing.Point(6, 17);
+            this.lblRoomName.Name = "lblRoomName";
+            this.lblRoomName.Size = new System.Drawing.Size(52, 23);
+            this.lblRoomName.TabIndex = 1;
+            this.lblRoomName.Text = "방 이름:";
+            this.lblRoomName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // txtRoomName
+            // 
+            this.txtRoomName.Location = new System.Drawing.Point(64, 19);
+            this.txtRoomName.Name = "txtRoomName";
+            this.txtRoomName.Size = new System.Drawing.Size(257, 21);
+            this.txtRoomName.TabIndex = 0;
             // 
             // grpFunctionList
             // 
@@ -67,37 +99,37 @@
             this.grpFunctionList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grpFunctionList.Name = "grpFunctionList";
             this.grpFunctionList.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.grpFunctionList.Size = new System.Drawing.Size(857, 80);
+            this.grpFunctionList.Size = new System.Drawing.Size(524, 80);
             this.grpFunctionList.TabIndex = 2;
             this.grpFunctionList.TabStop = false;
             this.grpFunctionList.Text = "기능";
             // 
             // btnEarthquakeCheckStop
             // 
-            this.btnEarthquakeCheckStop.Location = new System.Drawing.Point(468, 19);
+            this.btnEarthquakeCheckStop.Location = new System.Drawing.Point(394, 19);
             this.btnEarthquakeCheckStop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnEarthquakeCheckStop.Name = "btnEarthquakeCheckStop";
-            this.btnEarthquakeCheckStop.Size = new System.Drawing.Size(145, 52);
+            this.btnEarthquakeCheckStop.Size = new System.Drawing.Size(120, 25);
             this.btnEarthquakeCheckStop.TabIndex = 2;
             this.btnEarthquakeCheckStop.Text = "지진 체크 안 함";
             this.btnEarthquakeCheckStop.UseVisualStyleBackColor = true;
             // 
             // btnBirthDayCheckStop
             // 
-            this.btnBirthDayCheckStop.Location = new System.Drawing.Point(166, 19);
+            this.btnBirthDayCheckStop.Location = new System.Drawing.Point(142, 19);
             this.btnBirthDayCheckStop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBirthDayCheckStop.Name = "btnBirthDayCheckStop";
-            this.btnBirthDayCheckStop.Size = new System.Drawing.Size(145, 52);
+            this.btnBirthDayCheckStop.Size = new System.Drawing.Size(120, 25);
             this.btnBirthDayCheckStop.TabIndex = 2;
             this.btnBirthDayCheckStop.Text = "멤버 시 체크 안 함";
             this.btnBirthDayCheckStop.UseVisualStyleBackColor = true;
             // 
             // btnEarthquakeCheckStart
             // 
-            this.btnEarthquakeCheckStart.Location = new System.Drawing.Point(317, 18);
+            this.btnEarthquakeCheckStart.Location = new System.Drawing.Point(268, 19);
             this.btnEarthquakeCheckStart.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnEarthquakeCheckStart.Name = "btnEarthquakeCheckStart";
-            this.btnEarthquakeCheckStart.Size = new System.Drawing.Size(145, 52);
+            this.btnEarthquakeCheckStart.Size = new System.Drawing.Size(120, 25);
             this.btnEarthquakeCheckStart.TabIndex = 2;
             this.btnEarthquakeCheckStart.Text = "지진 체크 시작";
             this.btnEarthquakeCheckStart.UseVisualStyleBackColor = true;
@@ -107,7 +139,7 @@
             this.btnBirthDayCheckStart.Location = new System.Drawing.Point(16, 19);
             this.btnBirthDayCheckStart.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBirthDayCheckStart.Name = "btnBirthDayCheckStart";
-            this.btnBirthDayCheckStart.Size = new System.Drawing.Size(145, 52);
+            this.btnBirthDayCheckStart.Size = new System.Drawing.Size(120, 25);
             this.btnBirthDayCheckStart.TabIndex = 2;
             this.btnBirthDayCheckStart.Text = "멤버 시 체크 시작";
             this.btnBirthDayCheckStart.UseVisualStyleBackColor = true;
@@ -127,6 +159,7 @@
             // 
             // lvBirthDayImages
             // 
+            this.lvBirthDayImages.HideSelection = false;
             this.lvBirthDayImages.LargeImageList = this.ImgLst_BirthDay;
             this.lvBirthDayImages.Location = new System.Drawing.Point(248, 18);
             this.lvBirthDayImages.Name = "lvBirthDayImages";
@@ -165,6 +198,8 @@
             this.Name = "MasterCtl";
             this.Size = new System.Drawing.Size(890, 453);
             this.pnlMain.ResumeLayout(false);
+            this.grpRoomSet.ResumeLayout(false);
+            this.grpRoomSet.PerformLayout();
             this.grpFunctionList.ResumeLayout(false);
             this.grpCheckLog.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -185,5 +220,8 @@
         private System.Windows.Forms.Button btnEarthquakeCheckStop;
         private System.Windows.Forms.Button btnEarthquakeCheckStart;
         private System.Windows.Forms.ListView lvBirthDayImages;
+        private System.Windows.Forms.GroupBox grpRoomSet;
+        private System.Windows.Forms.Label lblRoomName;
+        private System.Windows.Forms.TextBox txtRoomName;
     }
 }

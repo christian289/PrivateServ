@@ -20,11 +20,10 @@ namespace IZONE
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private const string RoomName = "이상준";
-        //private const string RoomName = "안고독한 아이즈원(IZ*ONE)";
-
         IntPtr TgtHnd;
         DateTime CurTime;
+
+        bool AMPM;
 
         List<Member> IZONE;
         List<Anniversary> Anniversary;
@@ -59,18 +58,21 @@ namespace IZONE
             };
             btnBirthDayCheckStart.Click += delegate (object sender, EventArgs e)
             {
+                txtRoomName.Enabled = false;
                 tmr_BirthDayChecker.Enabled = true;
                 btnBirthDayCheckStart.Enabled = false;
                 btnBirthDayCheckStop.Enabled = true;
             };
             btnBirthDayCheckStop.Click += delegate (object sender, EventArgs e)
             {
+                txtRoomName.Enabled = true;
                 tmr_BirthDayChecker.Enabled = false;
                 btnBirthDayCheckStart.Enabled = true;
                 btnBirthDayCheckStop.Enabled = false;
             };
             btnEarthquakeCheckStart.Click += delegate (object sender, EventArgs e)
             {
+                txtRoomName.Enabled = false;
                 btnEarthquakeCheckStart.Enabled = false;
                 btnEarthquakeCheckStop.Enabled = true;
 
@@ -81,6 +83,7 @@ namespace IZONE
             };
             btnEarthquakeCheckStop.Click += delegate (object sender, EventArgs e)
             {
+                txtRoomName.Enabled = true;
                 btnEarthquakeCheckStop.Enabled = false;
                 btnEarthquakeCheckStart.Enabled = true;
 
@@ -109,6 +112,9 @@ namespace IZONE
             lvBirthDayImages.SmallImageList = ImgLst_BirthDay; // SmallImageList를 사용하기 위해선 ListView.View 속성이 Details or SmallIcon or List 여야 한다.
             lvBirthDayImages.View = View.LargeIcon;
             AddImages();
+
+            txtRoomName.Text = "안고독한 아이즈원(IZ*ONE)";
+            //txtRoomName.Text = "이상준";
         }
 
         private void AddImages()
@@ -134,21 +140,24 @@ namespace IZONE
         private void DayChecker()
         {
             // 나중에 패턴 사용해서 if 문 삭제
-            if (IsKaKaoTalkOpen(RoomName, out TgtHnd))
+            if (IsKaKaoTalkOpen(txtRoomName.Text, out TgtHnd))
             {
                 CurTime = DateTime.Now;
+                AMPM = (CurTime.Hour >= 12 ? false : true);
 
                 foreach (Member member in IZONE)
                 {
                     if (CurTime.ToString("hh").Equals(member.BirthDay.ToString("MM")) &&
                         CurTime.ToString("mm").Equals(member.BirthDay.ToString("dd")) &&
-                        member.BirthDayImageReady_AM)
+                        member.BirthDayImageReady_AM &&
+                        AMPM)
                     {
-                        Send(true, member.Name, member.BirthDayImage_PM, TgtHnd, member.BirthDayMessage);
+                        Send(true, member.Name, member.BirthDayImage_AM, TgtHnd, member.BirthDayMessage);
                     }
-                    else if (CurTime.ToString("HH").Equals(member.BirthDay.ToString("MM")) &&
+                    else if (CurTime.ToString("hh").Equals(member.BirthDay.ToString("MM")) &&
                         CurTime.ToString("mm").Equals(member.BirthDay.ToString("dd")) &&
-                        member.BirthDayImageReady_PM)
+                        member.BirthDayImageReady_PM &&
+                        !AMPM)
                     {
                         Send(false, member.Name, member.BirthDayImage_PM, TgtHnd, member.BirthDayMessage);
                     }
@@ -158,13 +167,15 @@ namespace IZONE
                 {
                     if (CurTime.ToString("hh").Equals(anniversary.Time.ToString("MM")) &&
                         CurTime.ToString("mm").Equals(anniversary.Time.ToString("dd")) &&
-                        anniversary.AnniversaryImageReady_AM)
+                        anniversary.AnniversaryImageReady_AM &&
+                        AMPM)
                     {
-                        Send(true, anniversary.Name, anniversary.AnniversaryImage_PM, TgtHnd, anniversary.Announcement);
+                        Send(true, anniversary.Name, anniversary.AnniversaryImage_AM, TgtHnd, anniversary.Announcement);
                     }
-                    else if (CurTime.ToString("HH").Equals(anniversary.Time.ToString("MM")) &&
+                    else if (CurTime.ToString("hh").Equals(anniversary.Time.ToString("MM")) &&
                         CurTime.ToString("mm").Equals(anniversary.Time.ToString("dd")) &&
-                        anniversary.AnniversaryImageReady_PM)
+                        anniversary.AnniversaryImageReady_PM &&
+                        !AMPM)
                     {
                         Send(false, anniversary.Name, anniversary.AnniversaryImage_PM, TgtHnd, anniversary.Announcement);
                     }
@@ -187,7 +198,7 @@ namespace IZONE
             }
             
             SendText(TgtHnd, Announcement);
-            log.Info(MemberName + "시 이미지 전송 완료");
+            log.Info(MemberName + "시 텍스트 전송 완료");
         }
 
         /// <summary>
@@ -259,7 +270,7 @@ namespace IZONE
 
         private void EarthquakeReportCallback()
         {
-            if (IsKaKaoTalkOpen(RoomName, out TgtHnd))
+            if (IsKaKaoTalkOpen(txtRoomName.Text, out TgtHnd))
             {
                 SendText(TgtHnd, MakeEarthquakeString(_EarthquakeReport));
                 log.Info("EarthquakeReport 지진 재난 정보 전송 완료");
@@ -268,7 +279,7 @@ namespace IZONE
 
         private void EarthquakeReportListCallback()
         {
-            if (IsKaKaoTalkOpen(RoomName, out TgtHnd))
+            if (IsKaKaoTalkOpen(txtRoomName.Text, out TgtHnd))
             {
                 SendText(TgtHnd, MakeEarthquakeString(_EarthquakeReportList));
                 log.Info("EarthquakeReportList 지진 재난 정보 전송 완료");
@@ -277,7 +288,7 @@ namespace IZONE
 
         private void TsunamiReportCallback()
         {
-            if (IsKaKaoTalkOpen(RoomName, out TgtHnd))
+            if (IsKaKaoTalkOpen(txtRoomName.Text, out TgtHnd))
             {
                 SendText(TgtHnd, MakeEarthquakeString(_TsunamiReport));
                 log.Info("TsunamiReport 해일 재난 정보 전송 완료");
@@ -286,7 +297,7 @@ namespace IZONE
 
         private void TsunamiReportListCallBack()
         {
-            if (IsKaKaoTalkOpen(RoomName, out TgtHnd))
+            if (IsKaKaoTalkOpen(txtRoomName.Text, out TgtHnd))
             {
                 SendText(TgtHnd, MakeEarthquakeString(_TsunamiReportList));
                 log.Info("TsunamiReportList 해일 재난 정보 전송 완료");
