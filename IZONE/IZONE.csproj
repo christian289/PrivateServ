@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Anniversarys\AnniRegist.cs" />
     <Compile Include="Anniversarys\Anniversary.cs" />
+    <Compile Include="Anniversarys\IZONE.cs" />
     <Compile Include="Anniversarys\Debut.cs" />
     <Compile Include="Anniversarys\Violeta.cs" />
     <Compile Include="MasterCtl.cs">
