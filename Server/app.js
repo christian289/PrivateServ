@@ -6,6 +6,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 var routes = require('./routes/index'); // routes 폴더에 추가하면 여기도 코드 추가
 var users = require('./routes/users'); // routes 폴더에 추가하면 여기도 코드 추가
@@ -49,6 +50,16 @@ if (app.get('env') === 'development') {
         });
     });
 }
+
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.MONGO_DB, { useMongoClient: true });
+var db = mongoose.connection;
+db.once('open', function () {
+    console.log('DB connected!');
+});
+db.on('error', function (err) {
+    console.log('DB ERROR:', err);
+});
 
 // production error handler
 // no stacktraces leaked to user
