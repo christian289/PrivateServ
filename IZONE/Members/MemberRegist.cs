@@ -16,9 +16,9 @@ namespace IZONE.Members
 
         public List<Member> Regist()
         {
-            var MemberListType = from Anniversary in Assembly.GetExecutingAssembly().GetTypes()
-                                 where Anniversary.IsClass && Anniversary.IsSubclassOf(typeof(Member))
-                                 select Anniversary;
+            var MemberListType = from Member in Assembly.GetExecutingAssembly().GetTypes()
+                                 where Member.IsClass && Member.IsSubclassOf(typeof(Member))
+                                 select Member;
 
             List<Member> MemberList = new List<Member>();
 
